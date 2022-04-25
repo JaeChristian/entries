@@ -1,9 +1,9 @@
 # Entries
 
 ## Description
-- A diary app with an emphasis on simplicity, 
+- A diary app with an emphasis on simplicity and elegance.
 
-## Stacj
+## Stack
 - MongoDB
 - Express
 - React
