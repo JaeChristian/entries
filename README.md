@@ -1,7 +1,7 @@
 # Entries
 
 ## Description
-- A diary app with an emphasis on simplicity and elegance.
+- A diary web app with an emphasis on simplicity and elegance.
 
 ## Stack
 - MongoDB
