@@ -3,7 +3,7 @@ import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import Entry from "./Entry";
 
-function EntriesContainer({handleFocus, entryChange, setEntryChange}) {
+function EntriesContainer({handleFocus, entryChange, updateEntries}) {
     const [entries, setEntries] = useState([]);
 
     const entriesApi = axios.create({
@@ -28,7 +28,7 @@ function EntriesContainer({handleFocus, entryChange, setEntryChange}) {
             {entries.slice(0).reverse().map((entry) => {
                 return (
                     <div key={entry._id}>
-                        <Entry entry={entry} entryChange={entryChange} setEntryChange={setEntryChange}/>
+                        <Entry entry={entry} updateEntries={updateEntries}/>
                     </div>
                 )
             })}

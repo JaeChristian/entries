@@ -60,13 +60,17 @@ function PostEntry(){
         entriesApi.post("/", newEntry).then((res) => 
             {
                 console.log(res.data);
-                setEntryChange(entryChange+1);
                 setEntryTitle("");
                 setEntryBody("");
                 setBodyTextHeight("40px");
+                updateEntries();
             }
         );
         console.log(newEntry);
+    }
+
+    function updateEntries() {
+        setEntryChange(entryChange+1);
     }
 
     return (
@@ -102,12 +106,20 @@ function PostEntry(){
                     />
                     <Collapse in={isOpen} animateOpacity>
                         <Box p={2} align="right">
-                        <Button onClick={(e) => onSubmit(e)}height="30px" bg={useColorModeValue('#f0e7db', '#1a1a1a')}><Text fontWeight="400">Done</Text></Button>
+                            <Button 
+                                onClick={(e) => onSubmit(e)} 
+                                height="30px" 
+                                bg={useColorModeValue('#f0e7db', '#1a1a1a')}
+                                _hover={{backgroundColor: "whiteAlpha.100"}}
+                                borderRadius="0.4rem"
+                            >
+                                <Text fontWeight="400">Done</Text>
+                            </Button>
                         </Box>
                     </Collapse>
                 </form>
             </Box>
-            <EntriesContainer handleFocus={handleFocus} entryChange={entryChange} setEntryChange={setEntryChange}/>
+            <EntriesContainer handleFocus={handleFocus} entryChange={entryChange} updateEntries={updateEntries}/>
         </>
     );
 }
