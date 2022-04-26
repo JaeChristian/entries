@@ -94,7 +94,7 @@ function EntryModal({entry, isOpen, onOpen, onClose, updateEntries}) {
                             onChange={(e) => handleBodyChange(e)}
                             minH={BodyTextHeight}
                         />
-                    <Box align="right">
+                    <Box align="right" mt={2}>
                         <Button 
                             type="submit"
                             height="30px" 

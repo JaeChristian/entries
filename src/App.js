@@ -10,7 +10,7 @@ function App() {
   return (
     <ChakraProvider theme={theme}>
       <Navbar/>
-      <Box mt="80px">
+      <Box mt={{base: "75px", md: "80px"}}>
       <Router>
         <Routes>
           <Route exact path="/" element={<Home/>}/>

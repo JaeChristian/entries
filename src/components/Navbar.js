@@ -1,4 +1,4 @@
-import {Box, Heading, Container, Text, Flex, Menu, IconButton, useColorModeValue, MenuButton, MenuList, MenuItem} from "@chakra-ui/react";
+import {Box, Heading, Container, Text, Flex, Image, Menu, IconButton, useColorModeValue, MenuButton, MenuList, MenuItem} from "@chakra-ui/react";
 import {HamburgerIcon} from "@chakra-ui/icons";
 import styled from "@emotion/styled";
 
@@ -24,8 +24,17 @@ function Navbar(){
                 justifyContent="space-between"
                 alignItems="center"
             >
-                <Box display="inline-block" opacity={0}>
-                    <HamburgerIcon/>
+                <Box display="inline-block">
+                        <Menu>
+                            <MenuButton
+                                userSelect="none"
+                                opacity={0}
+                                as={IconButton}
+                                icon={<HamburgerIcon/>}
+                                variant="outline"
+                                _focus={{borderColor: "whiteAlpha.400"}}
+                            />
+                        </Menu>
                 </Box>
                 <Heading fontSize="2xl" fontWeight="500">entries</Heading>
                 <Box display="inline-block">

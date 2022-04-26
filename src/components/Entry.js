@@ -66,23 +66,24 @@ function Entry({entry, updateEntries}){
                 flexDir="column"
                 gap={2}
             >
-            <Heading 
-                fontSize="lg" 
-                fontWeight="500" 
-                p={4} 
-                pb={0}
-            >
-                {entry.title}
-            </Heading>
-            <Box pr={4} 
-                pl={4} 
-                maxH="800px" 
-                overflowY="auto" 
-                className="entry" 
-                borderRadius="0.2rem"
-            >
-                <Box fontSize="md" fontWeight="400" whiteSpace="pre-wrap">{entry.body}</Box>
-            </Box>
+                <Heading 
+                    fontSize="lg" 
+                    fontWeight="500" 
+                    p={4} 
+                    pb={0}
+                >
+                    {entry.title}
+                </Heading>
+                <Box
+                    maxH="800px" 
+                    overflowY="auto" 
+                    className="entry" 
+                    borderRadius="0.2rem"
+                    mr={1}
+                    ml={4}
+                >
+                    <Box fontSize="md" fontWeight="400" whiteSpace="pre-wrap">{entry.body}</Box>
+                </Box>
             </Box>
             <Box 
                 p={4} 
