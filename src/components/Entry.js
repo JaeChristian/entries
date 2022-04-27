@@ -4,7 +4,7 @@ import {DeleteIcon} from "@chakra-ui/icons";
 import EntryModal from "./EntryModal";
 
 function Entry({entry, updateEntries}){
-    //Needed to turn date to string
+    // Needed to turn date to string
     const months = 
     [
         'January',
@@ -45,7 +45,7 @@ function Entry({entry, updateEntries}){
             console.log(res.data);
             updateEntries();
         }).catch((err)=>{
-            console.error(err.message);
+            console.error(err.response.data.message);
         });
     }
 

@@ -1,4 +1,4 @@
-import {Box, Text, Flex, useColorModeValue} from "@chakra-ui/react"
+import {Flex} from "@chakra-ui/react"
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import Entry from "./Entry";
@@ -6,17 +6,17 @@ import Entry from "./Entry";
 function EntriesContainer({handleFocus, entryChange, updateEntries}) {
     const [entries, setEntries] = useState([]);
 
-    const entriesApi = axios.create({
-        baseURL: "/entries"
-    });
-
     const getEntries = useCallback(()=>{
+        const entriesApi = axios.create({
+            baseURL: "/entries"
+        });
+
         console.log("Getting all posts");
         entriesApi.get("/").then((res)=>{
             console.log(res.data);
             setEntries(res.data);
         }).catch((err)=>{
-            console.log(err);
+            console.log(err.response.data.message);
         });
     },[]);
 

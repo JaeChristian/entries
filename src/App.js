@@ -2,22 +2,19 @@ import './App.css';
 import theme from "./libs/theme";
 import {ChakraProvider, Box} from "@chakra-ui/react";
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
-import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
-import Landing from "./pages/Landing";
+import Login from "./pages/Login";
 
 function App() {
   return (
     <ChakraProvider theme={theme}>
-      <Navbar/>
-      <Box mt={{base: "75px", md: "80px"}}>
-      <Router>
-        <Routes>
-          <Route exact path="/" element={<Home/>}/>
-          <Route exact path="/home" element={<Home/>}/>
-        </Routes>
-      </Router>
-      </Box>
+        <Router>
+          <Routes>
+            <Route exact path="/" element={<Login/>}/>
+            <Route exact path="/home" element={<Home/>}/>
+            <Route exact path="/login" element={<Login/>}/>
+          </Routes>
+        </Router>
     </ChakraProvider>
   );
 }
