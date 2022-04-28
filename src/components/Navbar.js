@@ -1,13 +1,28 @@
 import {Box, Heading, Container, Text, Flex, Image, Menu, IconButton, useColorModeValue, MenuButton, MenuList, MenuItem} from "@chakra-ui/react";
 import {HamburgerIcon} from "@chakra-ui/icons";
 import styled from "@emotion/styled";
+import ModeToggleButton from "./darkModeToggler";
+import { Navigate } from "react-router-dom";
+import {useEffect, useState} from "react";
 
 function Navbar(){
-    const bg = useColorModeValue('#f0e7db', '#1a1a1a');
+    const bg = useColorModeValue('white', '#1a1a1a');
+    const [redirect, setRedirect] = useState(false);
     const Link = styled.a`
         width: 100%;
         font-weight: 300;
     `;
+    function killToken() {
+        localStorage.removeItem("token");
+        setRedirect(true);
+    }
+
+    useEffect(()=>{
+        if(redirect) {
+            setRedirect(false);
+        }
+    }, []);
+    
     return(
         <Box
             position="fixed"
@@ -24,18 +39,7 @@ function Navbar(){
                 justifyContent="space-between"
                 alignItems="center"
             >
-                <Box display="inline-block">
-                        <Menu>
-                            <MenuButton
-                                userSelect="none"
-                                opacity={0}
-                                as={IconButton}
-                                icon={<HamburgerIcon/>}
-                                variant="outline"
-                                _focus={{borderColor: "whiteAlpha.400"}}
-                            />
-                        </Menu>
-                </Box>
+                <ModeToggleButton/>
                 <Heading fontSize="2xl" fontWeight="500">entries</Heading>
                 <Box display="inline-block">
                     <Menu>
@@ -44,13 +48,17 @@ function Navbar(){
                             icon={<HamburgerIcon/>}
                             variant="outline"
                             _focus={{borderColor: "whiteAlpha.400"}}
+                            borderColor={useColorModeValue("blackAlpha.300", "rgba(255,255,255,0.3)")}
                         />
-                        <MenuList bg="#1a1a1a">
+                        <MenuList bg={bg}>
                             <MenuItem w="100%">
-                                <Link href="javascript:void(0)">Home</Link>
+                                <Link href="/home">Home</Link>
                             </MenuItem>
                             <MenuItem w="100%">
                                 <Link href="javascript:void(0)">Settings</Link>
+                            </MenuItem>
+                            <MenuItem w="100%">
+                                <Link href="/login" onClick={() => killToken()}>Logout</Link>
                             </MenuItem>
                         </MenuList>
                     </Menu>

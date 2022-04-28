@@ -11,6 +11,13 @@ const AnimatedDiv = chakra(motion.div, {
 });
 
 function PostEntry(){
+    const entriesApi = axios.create({
+        headers: {
+            Authorization: `bearer ${localStorage.getItem("token")}`,
+        },
+        baseURL: "/entries"
+    });
+
     const [bodyTextHeight, setBodyTextHeight] = useState("40px");
     const [titleTextHeight, setTitleTextHeight] = useState("40px");
     const input2Focus = useRef(null);
@@ -19,10 +26,6 @@ function PostEntry(){
     const [entryBody, setEntryBody] = useState("");
     const [entryChange, setEntryChange] = useState(0);
     const {isOpen, onOpen, onClose} = useDisclosure();
-
-    const entriesApi = axios.create({
-        baseURL: "/entries"
-    });
 
     function handleFocus(e) {
         if(input1Focus.current !== document.activeElement && input2Focus.current !== document.activeElement && entryTitle === "" && entryBody === ""){
@@ -75,7 +78,7 @@ function PostEntry(){
 
     return (
         <>
-            <Box w="100%" onFocus={onOpen} border="1px solid rgba(255,255,255,0.3)" borderRadius="0.4rem" onMouseOver={(e) => handleFocus(e)}>
+            <Box w="100%" onFocus={onOpen} border="1px solid" borderColor={useColorModeValue("blackAlpha.300", "rgba(255,255,255,0.3)")} borderRadius="0.4rem" onMouseOver={(e) => handleFocus(e)}>
                 <form onSubmit={onSubmit}>
                     <Collapse in={isOpen} animateOpacity>
                         <Textarea

@@ -1,9 +1,10 @@
 import './App.css';
 import theme from "./libs/theme";
-import {ChakraProvider, Box} from "@chakra-ui/react";
+import {ChakraProvider} from "@chakra-ui/react";
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import {useEffect} from "react";
 
 function App() {
   return (

@@ -1,16 +1,21 @@
 import {Modal, ModalOverlay, ModalContent, Box, Heading, Text, Textarea, Button, useColorModeValue} from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import axios from "axios"
+import axios from "axios";
 
 function EntryModal({entry, isOpen, onOpen, onClose, updateEntries}) {
+    const entriesApi = axios.create({
+        headers: {
+            Authorization: `bearer ${localStorage.getItem("token")}`,
+        },
+        baseURL: "/entries"
+    });
+
     const [TitleTextHeight, setTitleTextHeight] = useState("40px");
     const [BodyTextHeight, setBodyTextHeight] = useState("200px");
     const [title, setTitle] = useState(entry.title);
     const [body, setBody] = useState(entry.body);
 
-    const entriesApi = axios.create({
-        baseURL: "/entries"
-    });
+    const bg = useColorModeValue("#EAEAEA", "rgba(31, 31, 31)");
 
     // Reset title and body variables when modal is closed
     useEffect(()=>{
@@ -30,14 +35,11 @@ function EntryModal({entry, isOpen, onOpen, onClose, updateEntries}) {
 
     function handleBodyChange(e) {
         let scHeight = e.target.scrollHeight;
-        console.log(scHeight);
         if(e?.target.value === ""){
             setBodyTextHeight("200px");
         } else {
             setBodyTextHeight(scHeight + "px");
         }
-        console.log(TitleTextHeight, "state");
-        console.log(e.target.value);
         setBody(e.target.value);
     }
 
@@ -61,7 +63,7 @@ function EntryModal({entry, isOpen, onOpen, onClose, updateEntries}) {
         <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay/>
             <ModalContent
-                bg="rgb(31,31,31)" 
+                bg={bg}
                 minW={{base: "95%", md: "700px"}}
                 minH="200px"
             >
@@ -98,8 +100,8 @@ function EntryModal({entry, isOpen, onOpen, onClose, updateEntries}) {
                         <Button 
                             type="submit"
                             height="30px" 
-                            bg={useColorModeValue('#f0e7db', '#1a1a1a')}
-                            _hover={{backgroundColor: "whiteAlpha.100"}}
+                            bg={useColorModeValue('blackAlpha.200', '#1a1a1a')}
+                            _hover={{backgroundColor: useColorModeValue('blackAlpha.300', 'whiteAlpha.100')}}
                             borderRadius="0.4rem"
                             onClick={() =>{
                                 onClose();

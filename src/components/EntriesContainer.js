@@ -6,13 +6,18 @@ import Entry from "./Entry";
 function EntriesContainer({handleFocus, entryChange, updateEntries}) {
     const [entries, setEntries] = useState([]);
 
-    const getEntries = useCallback(()=>{
-        const entriesApi = axios.create({
-            baseURL: "/entries"
-        });
+    const currUser = JSON.parse(atob(localStorage.getItem("token")?.split(".")[1]));
 
+    const entriesApi = axios.create({
+        headers: {
+            Authorization: `bearer ${localStorage.getItem("token")}`,
+        },
+        baseURL: "/entries"
+    });
+
+    const getEntries = useCallback(()=>{
         console.log("Getting all posts");
-        entriesApi.get("/").then((res)=>{
+        entriesApi.get("/user/" + currUser.id).then((res)=>{
             console.log(res.data);
             setEntries(res.data);
         }).catch((err)=>{

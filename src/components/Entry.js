@@ -1,9 +1,16 @@
-import {Box, Text, Heading, IconButton, Icon, useDisclosure, Fade, Textarea} from "@chakra-ui/react";
+import {Box, Text, Heading, IconButton, Icon, useDisclosure, Fade, Textarea, useColorModeValue} from "@chakra-ui/react";
 import axios from "axios";
 import {DeleteIcon} from "@chakra-ui/icons";
 import EntryModal from "./EntryModal";
 
 function Entry({entry, updateEntries}){
+    const entriesApi = axios.create({
+        headers: {
+            Authorization: `bearer ${localStorage.getItem("token")}`,
+        },
+        baseURL: "/entries"
+    });
+
     // Needed to turn date to string
     const months = 
     [
@@ -26,6 +33,8 @@ function Entry({entry, updateEntries}){
     const month = months[date.getMonth()];
     const dateToString = `${month} ${day}, ${year}`;
 
+    const bg = useColorModeValue("#EAEAEA", "rgba(51,51,51,0.4)");
+
     // Disclosure hook for entry option
     const {isOpen, onOpen, onClose} = useDisclosure();
 
@@ -35,10 +44,6 @@ function Entry({entry, updateEntries}){
             onOpen: onOpenModal,
             onClose: onCloseModal,
     } = useDisclosure();
-
-    const entriesApi = axios.create({
-        baseURL: "/entries"
-    });
 
     function deletePost() {
         entriesApi.delete("/" + entry._id).then((res)=>{
@@ -51,7 +56,7 @@ function Entry({entry, updateEntries}){
 
     return(
         <Box 
-            bg="rgba(51,51,51,0.4)" 
+            bg={bg} 
             borderRadius="0.4rem" 
             display="flex" 
             flexDir="column" 
@@ -99,8 +104,8 @@ function Entry({entry, updateEntries}){
                         bg="none" 
                         borderRadius="xl" 
                         size="sm"
-                        color="whiteAlpha.300"
-                        _hover={{backgroundColor: "whiteAlpha.100"}}
+                        color={useColorModeValue("blackAlpha.500", "whiteAlpha.300")}
+                        _hover={{backgroundColor: useColorModeValue("blackAlpha.100", "whiteAlpha.100")}}
                         onClick={() => deletePost()}
                     />
                 </Fade>

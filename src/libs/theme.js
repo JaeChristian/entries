@@ -3,13 +3,13 @@ import {mode} from "@chakra-ui/theme-tools";
 const styles = {
     global: props=>({
         body: {
-            bg: mode('#f0e7db', '#1a1a1a')(props)
+            bg: mode('white', '#1a1a1a')(props)
         }
     })
 }
 
 const config = {
-    initialColorMode: 'dark'
+    initialColorMode: 'light'
 }
 
 const theme = extendTheme({
