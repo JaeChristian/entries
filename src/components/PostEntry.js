@@ -112,8 +112,8 @@ function PostEntry(){
                             <Button 
                                 onClick={(e) => onSubmit(e)} 
                                 height="30px" 
-                                bg={useColorModeValue('#f0e7db', '#1a1a1a')}
-                                _hover={{backgroundColor: "whiteAlpha.100"}}
+                                bg={useColorModeValue('blackAlpha.200', '#1a1a1a')}
+                                _hover={{backgroundColor: useColorModeValue('blackAlpha.300', 'whiteAlpha.100')}}
                                 borderRadius="0.4rem"
                             >
                                 <Text fontWeight="400">Done</Text>

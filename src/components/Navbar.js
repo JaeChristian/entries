@@ -50,7 +50,7 @@ function Navbar(){
                             _focus={{borderColor: "whiteAlpha.400"}}
                             borderColor={useColorModeValue("blackAlpha.300", "rgba(255,255,255,0.3)")}
                         />
-                        <MenuList bg={bg}>
+                        <MenuList bg={bg} border="none" boxShadow="0 5px 4px rgba(0, 0, 0, 0.08), 0 5px 8px rgba(0, 0, 0, 0.2)">
                             <MenuItem w="100%">
                                 <Link href="/home">Home</Link>
                             </MenuItem>

@@ -10,6 +10,28 @@ function EntryModal({entry, isOpen, onOpen, onClose, updateEntries}) {
         baseURL: "/entries"
     });
 
+    // Needed to turn date to string
+    const months = 
+    [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December'
+    ]
+    const date = new Date(entry.date);
+    const year = date.getFullYear();
+    const day = date.getDate();
+    const month = months[date.getMonth()];
+    const dateToString = `${month} ${day}, ${year}`;
+
     const [TitleTextHeight, setTitleTextHeight] = useState("40px");
     const [BodyTextHeight, setBodyTextHeight] = useState("200px");
     const [title, setTitle] = useState(entry.title);
@@ -84,6 +106,7 @@ function EntryModal({entry, isOpen, onOpen, onClose, updateEntries}) {
                                 fontSize="lg"
                                 fontWeight="500"
                                 onChange={(e) => handleTitleChange(e)}
+                                p={0}
                             />
                         </Heading>
                         <Textarea
@@ -95,21 +118,25 @@ function EntryModal({entry, isOpen, onOpen, onClose, updateEntries}) {
                             fontWeight="400"
                             onChange={(e) => handleBodyChange(e)}
                             minH={BodyTextHeight}
+                            p={0}
                         />
-                    <Box align="right" mt={2}>
-                        <Button 
-                            type="submit"
-                            height="30px" 
-                            bg={useColorModeValue('blackAlpha.200', '#1a1a1a')}
-                            _hover={{backgroundColor: useColorModeValue('blackAlpha.300', 'whiteAlpha.100')}}
-                            borderRadius="0.4rem"
-                            onClick={() =>{
-                                onClose();
-                            }}
-                        >
-                            <Text fontWeight="400">Done</Text>
-                        </Button>
-                    </Box>
+                        <Box align="right" mt={2}>
+                            <Text fontSize="xs" align="right">{dateToString}</Text>
+                        </Box>
+                        <Box align="right" mt={2}>
+                            <Button 
+                                type="submit"
+                                height="30px" 
+                                bg={useColorModeValue('blackAlpha.200', '#1a1a1a')}
+                                _hover={{backgroundColor: useColorModeValue('blackAlpha.300', 'whiteAlpha.100')}}
+                                borderRadius="0.4rem"
+                                onClick={() =>{
+                                    onClose();
+                                }}
+                            >
+                                <Text fontWeight="400">Done</Text>
+                            </Button>
+                        </Box>
                     </form>
                 </Box>
             </ModalContent>
