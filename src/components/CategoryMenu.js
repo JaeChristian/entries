@@ -1,12 +1,14 @@
-import {Menu, MenuButton, IconButton, useColorModeValue, MenuList, MenuItem, Text} from "@chakra-ui/react"
+import {Menu, MenuButton, Box, IconButton, useColorModeValue, MenuList, MenuItem, Text, Input} from "@chakra-ui/react"
 import {HamburgerIcon, PlusSquareIcon} from "@chakra-ui/icons";
 import axios from "axios";
-import Category from "./Category";
+import CategorySelection from "./CategorySelection";
 import { useCallback, useEffect, useState } from "react";
 
-function CategoryMenu ({entry, categories, updateEntries}) {
+function CategoryMenu ({entry, categories, updateEntries, updateCategories}) {
     // Background color for category menu
     const bg = useColorModeValue("white", "#1a1a1a");
+
+    const [categoryName, setCategoryName] = useState("");
 
     // Endpoint for entries
     const entriesAPI = axios.create({
@@ -16,7 +18,15 @@ function CategoryMenu ({entry, categories, updateEntries}) {
         baseURL: "/entries"
     });
 
-    // Patches current entry to a category
+    // Endpoint for categories
+     const categoriesAPI = axios.create({
+        headers: {
+            Authorization: `bearer ${localStorage.getItem("token")}`,
+        },
+        baseURL: "/categories"
+    });
+
+    // Patches current entry to a new categoryId
     function setCategory(categoryId) {
         const newEntry = {
             categoryId: categoryId
@@ -25,6 +35,20 @@ function CategoryMenu ({entry, categories, updateEntries}) {
             updateEntries();
         }).catch((err) => {
             console.log(err.response.data.message);
+        });
+    }
+
+    function submitNewCategory(e) {
+        e.preventDefault();
+        const newCategory = {
+            name: categoryName
+        }
+        
+        categoriesAPI.post("/", newCategory).then((res)=> {
+            updateCategories();
+            setCategoryName("");
+        }).catch((err)=>{
+            console.error(err);
         });
     }
 
@@ -46,13 +70,26 @@ function CategoryMenu ({entry, categories, updateEntries}) {
                 border="none"
                 boxShadow="0 5px 4px rgba(0, 0, 0, 0.08), 0 5px 8px rgba(0, 0, 0, 0.2)"
             >
+                <Box display="flex" justifyContent="center">
+                    <form onSubmit={submitNewCategory}>
+                        <Input 
+                            type="text" 
+                            onChange={(e) => setCategoryName(e.target.value)}
+                            value={categoryName}
+                            placeholder="Create a label"
+                            fontSize="sm"
+                            variant="flushed"
+                            _focus={{}}
+                        />
+                    </form>
+                </Box>
                 <MenuItem w="100%" display="flex" gap={2} onClick={(e) => setCategory("")}>
                     <Text fontSize="sm">none</Text>
                 </MenuItem>
                 {categories.map((category) => {
                     return (
                         <div key={category._id}>
-                            <Category category={category} setCategory={setCategory}/>
+                            <CategorySelection category={category} setCategory={setCategory}/>
                         </div>
                     )
                 })}

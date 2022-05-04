@@ -5,7 +5,7 @@ import EntryModal from "./EntryModal";
 import CategoryMenu from "./CategoryMenu";
 import { useEffect, useState } from "react";
 
-function Entry({entry, updateEntries, categories}){
+function Entry({entry, updateEntries, categories, updateCategories}){
     const entriesApi = axios.create({
         headers: {
             Authorization: `bearer ${localStorage.getItem("token")}`,
@@ -154,7 +154,7 @@ function Entry({entry, updateEntries, categories}){
                         _hover={{backgroundColor: useColorModeValue("blackAlpha.100", "whiteAlpha.100")}}
                         onClick={() => deletePost()}
                     />
-                    <CategoryMenu entry={entry} categories={categories} updateEntries={updateEntries}/>
+                    <CategoryMenu entry={entry} categories={categories} updateEntries={updateEntries} updateCategories={updateCategories}/>
                 </Fade>
                 <Text fontSize="xs" align="right" justifySelf="flex-end" mr={4}>{dateToString}</Text>
             </Box>
