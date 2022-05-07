@@ -63,9 +63,7 @@ function PostEntry(){
         entriesApi.post("/", newEntry).then((res) => 
             {
                 console.log(res.data);
-                setEntryTitle("");
-                setEntryBody("");
-                setBodyTextHeight("40px");
+                clearText();
                 updateEntries();
             }
         );
@@ -74,6 +72,12 @@ function PostEntry(){
 
     function updateEntries() {
         setEntryChange(entryChange+1);
+    }
+
+    function clearText() {
+        setEntryTitle("");
+        setEntryBody("");
+        setBodyTextHeight("40px");
     }
 
     return (
@@ -110,11 +114,21 @@ function PostEntry(){
                     <Collapse in={isOpen} animateOpacity>
                         <Box p={2} align="right">
                             <Button 
+                                onClick={(e) => clearText(e)} 
+                                height="30px"
+                                mr={4}
+                                variant="link"
+                            >
+                                <Text fontWeight="400">Clear</Text>
+                            </Button>
+                            <Button 
                                 onClick={(e) => onSubmit(e)} 
                                 height="30px" 
-                                bg={useColorModeValue('blackAlpha.200', '#1a1a1a')}
-                                _hover={{backgroundColor: useColorModeValue('blackAlpha.300', 'whiteAlpha.100')}}
-                                borderRadius="0.4rem"
+                                variant={useColorModeValue("solid", "outline")}
+                                borderColor="green.200"
+                                color={useColorModeValue(null, "green.200")}
+                                bg={useColorModeValue("orange.200")}
+                                _hover={useColorModeValue({bg: "orange.300"})}
                             >
                                 <Text fontWeight="400">Done</Text>
                             </Button>
