@@ -1,6 +1,6 @@
 import {Container, Box} from "@chakra-ui/react";
 import Navbar from "../components/Navbar";
-function ContentLayout({children, showNav}) {
+function ContentLayout({children, showNav, containerSize = "container.md"}) {
     return(
         <>
             {
@@ -9,7 +9,7 @@ function ContentLayout({children, showNav}) {
                 ) : null 
             }
             <Box mt={{base: "75px", md: "80px"}}>
-                <Container maxW={{base: "100%", md: "container.md"}} display="flex" flexDir="column" alignItems="center" zIndex="2" mb={6}>
+                <Container maxW={{base: "100%", md: containerSize}} display="flex" flexDir="column" alignItems="center" zIndex="2" mb={6}>
                     {children}
                 </Container>
             </Box>
