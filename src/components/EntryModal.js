@@ -37,7 +37,7 @@ function EntryModal({entry, isOpen, onOpen, onClose, updateEntries}) {
     const [title, setTitle] = useState(entry.title);
     const [body, setBody] = useState(entry.body);
 
-    const bg = useColorModeValue("#EAEAEA", "rgba(31, 31, 31)");
+    const bg = useColorModeValue("#EAEAEA", "#1e1e1e");
 
     // Reset title and body variables when modal is closed
     useEffect(()=>{
@@ -86,7 +86,7 @@ function EntryModal({entry, isOpen, onOpen, onClose, updateEntries}) {
             <ModalOverlay/>
             <ModalContent
                 bg={bg}
-                minW={{base: "95%", md: "700px"}}
+                minW={{base: "95%", md: "container.lg"}}
                 minH="200px"
             >
                 <Box

@@ -6,7 +6,7 @@ import { Navigate } from "react-router-dom";
 import {useEffect, useState} from "react";
 
 function Navbar(){
-    const bg = useColorModeValue('white', '#1a1a1a');
+    const bg = useColorModeValue('white', '#181818');
     const [redirect, setRedirect] = useState(false);
     const Link = styled.a`
         width: 100%;
@@ -34,7 +34,7 @@ function Navbar(){
             bg={bg}
         >
             <Container 
-                minW={{base: "100%", md: "container.md"}}
+                minW={{base: "100%", md: "container.lg"}}
                 display="flex"
                 justifyContent="space-between"
                 alignItems="center"

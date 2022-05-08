@@ -42,7 +42,7 @@ function Entry({entry, updateEntries, categories, updateCategories}){
     const month = months[date.getMonth()];
     const dateToString = `${month} ${day}, ${year}`;
 
-    const bg = useColorModeValue("#EAEAEA", "rgba(51,51,51,0.4)");
+    const bg = useColorModeValue("#EAEAEA", "#1e1e1e");
 
     // Disclosure hook for entry options popup
     const {isOpen, onOpen, onClose} = useDisclosure();
@@ -106,14 +106,14 @@ function Entry({entry, updateEntries, categories, updateCategories}){
                     {entry.title}
                 </Heading>
                 <Box
-                    maxH="800px" 
+                    maxH={{base: "500px", md: "800px"}}
                     overflowY="auto" 
                     className="entry" 
                     borderRadius="0.2rem"
                     mr={1}
                     ml={4}
                 >
-                    <Box fontSize="md" fontWeight="400" whiteSpace="pre-wrap">{entry.body}</Box>
+                    <Box fontSize="16px" whiteSpace="pre-wrap">{entry.body}</Box>
                 </Box>
             </Box>
             <Box display="flex" mt={4} justifyContent="flex-end">
