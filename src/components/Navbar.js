@@ -34,7 +34,7 @@ function Navbar(){
             bg={bg}
         >
             <Container 
-                minW={{base: "100%", md: "container.lg"}}
+                minW="100%"
                 display="flex"
                 justifyContent="space-between"
                 alignItems="center"

@@ -86,8 +86,8 @@ function Entry({entry, updateEntries, categories, updateCategories}){
             display="flex" 
             flexDir="column" 
             gap={2} 
-            onMouseOver={onOpen} 
-            onMouseOut={onClose}
+            onMouseEnter={onOpen} 
+            onMouseLeave={onClose}
             onFocus={onOpen}
         >
             <Box

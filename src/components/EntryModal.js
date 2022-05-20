@@ -119,6 +119,7 @@ function EntryModal({entry, isOpen, onOpen, onClose, updateEntries}) {
                             onChange={(e) => handleBodyChange(e)}
                             minH={BodyTextHeight}
                             p={0}
+                            overflowX="hidden"
                         />
                         <Box align="right" mt={2}>
                             <Text fontSize="xs" align="right">{dateToString}</Text>

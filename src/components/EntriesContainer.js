@@ -3,21 +3,11 @@ import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import Entry from "./Entry";
 
-function EntriesContainer({handleFocus, entryChange, updateEntries}) {
+function EntriesContainer({handleFocus, entryChange, updateEntries, categories, updateCategories}) {
     const [entries, setEntries] = useState([]);
-    const [categories, setCategories] = useState([]);
-    const [categoryChange, setCategoryChange] = useState(0);
 
     // Decrypted JWT token
     const authUser = JSON.parse(atob(localStorage.getItem("token")?.split(".")[1]));
-
-    // Endpoint for categories
-    const categoriesAPI = axios.create({
-        headers: {
-            Authorization: `bearer ${localStorage.getItem("token")}`,
-        },
-        baseURL: "/categories"
-    });
 
     // Endpoint for entries
     const entriesApi = axios.create({
@@ -26,14 +16,6 @@ function EntriesContainer({handleFocus, entryChange, updateEntries}) {
         },
         baseURL: "/entries"
     });
-
-    function fetchCategories() {
-        categoriesAPI.get("/user/" + authUser.id).then((res) => {
-            setCategories(res.data);
-        }).catch((err) => {
-            console.error(err.response.data.message);
-        })
-    }
 
     function getEntries() {
         console.log("Getting all posts");
@@ -46,18 +28,11 @@ function EntriesContainer({handleFocus, entryChange, updateEntries}) {
         });
     }
 
-    function updateCategories() {
-        setCategoryChange(categoryChange + 1);
-    }
-
     useEffect(()=>{
         getEntries();
-        fetchCategories();
+        //fetchCategories();
     },[entryChange]);
 
-    useEffect(()=>{
-        fetchCategories();
-    }, [categoryChange]);
 
     return(
         <Flex mt={4} width="100%" flexDir="column" gap={4} onClick={(e) => handleFocus(e)}>

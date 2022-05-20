@@ -10,7 +10,7 @@ const AnimatedDiv = chakra(motion.div, {
     }
 });
 
-function PostEntry(){
+function PostEntry({categories, updateCategories}){
     const entriesApi = axios.create({
         headers: {
             Authorization: `bearer ${localStorage.getItem("token")}`,
@@ -136,7 +136,7 @@ function PostEntry(){
                     </Collapse>
                 </form>
             </Box>
-            <EntriesContainer handleFocus={handleFocus} entryChange={entryChange} updateEntries={updateEntries}/>
+            <EntriesContainer handleFocus={handleFocus} entryChange={entryChange} updateEntries={updateEntries} categories={categories} updateCategories={updateCategories}/>
         </>
     );
 }
