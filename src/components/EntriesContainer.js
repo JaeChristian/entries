@@ -1,9 +1,10 @@
 import {Flex} from "@chakra-ui/react"
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import Entry from "./Entry";
 
-function EntriesContainer({handleFocus, entryChange, updateEntries, categories, updateCategories}) {
+function EntriesContainer({handleFocus, entryChange, updateEntries, categories, updateCategories, showAll}) {
     const [entries, setEntries] = useState([]);
 
     // Decrypted JWT token
@@ -17,21 +18,43 @@ function EntriesContainer({handleFocus, entryChange, updateEntries, categories, 
         baseURL: "/entries"
     });
 
+    // Endpoint for categories
+    const categoriesApi = axios.create({
+        headers: {
+            Authorization: `bearer ${localStorage.getItem("token")}`,
+        },
+        baseURL: "/categories"
+    });
+
+    const {categoryId} = useParams();
+
     function getEntries() {
-        console.log("Getting all posts");
-        entriesApi.get("/user/" + authUser.id).then((res)=>{
-            let newEntries = res.data;
-            newEntries = newEntries.slice()
-            setEntries(newEntries);
-        }).catch((err)=>{
-            console.log(err.response.data.message);
-        });
+        if(showAll){
+            console.log("Getting all posts");
+            entriesApi.get("/user/" + authUser.id).then((res)=>{
+                let newEntries = res.data;
+                newEntries = newEntries.slice()
+                setEntries(newEntries);
+            }).catch((err)=>{
+                console.log(err.response.data.message);
+            });
+        } else {
+            console.log("Getting filtered posts");
+            categoriesApi.get("/category/" + categoryId).then((res)=>{
+                let newEntries = res.data;
+                newEntries = newEntries.slice()
+                setEntries(newEntries);
+            }).catch((err)=>{
+                console.log(err.response.data.message);
+            })
+            
+        }
     }
 
     useEffect(()=>{
         getEntries();
         //fetchCategories();
-    },[entryChange]);
+    },[entryChange, categoryId]);
 
 
     return(

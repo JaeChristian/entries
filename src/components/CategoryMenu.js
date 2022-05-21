@@ -4,11 +4,14 @@ import axios from "axios";
 import CategorySelection from "./CategorySelection";
 import { useCallback, useEffect, useState } from "react";
 
-function CategoryMenu ({entry, categories, updateEntries, updateCategories}) {
+function CategoryMenu ({entry, updateEntries}) {
     // Background color for category menu
     const bg = useColorModeValue("white", "#1a1a1a");
-
+    const [categories, setCategories] = useState([]);
     const [categoryName, setCategoryName] = useState("");
+
+    // Decrypted JWT token
+    const authUser = JSON.parse(atob(localStorage.getItem("token")?.split(".")[1]));
 
     // Endpoint for entries
     const entriesAPI = axios.create({
@@ -26,6 +29,14 @@ function CategoryMenu ({entry, categories, updateEntries, updateCategories}) {
         baseURL: "/categories"
     });
 
+    function fetchCategories() {
+        categoriesAPI.get("/user/" + authUser.id).then((res) => {
+            setCategories(res.data);
+        }).catch((err) => {
+            console.error(err.response.data.message);
+        })
+    }
+
     // Patches current entry to a new categoryId
     function setCategory(categoryId) {
         const newEntry = {
@@ -38,19 +49,19 @@ function CategoryMenu ({entry, categories, updateEntries, updateCategories}) {
         });
     }
 
-    function submitNewCategory(e) {
-        e.preventDefault();
-        const newCategory = {
-            name: categoryName
-        }
+    // function submitNewCategory(e) {
+    //     e.preventDefault();
+    //     const newCategory = {
+    //         name: categoryName
+    //     }
         
-        categoriesAPI.post("/", newCategory).then((res)=> {
-            updateCategories();
-            setCategoryName("");
-        }).catch((err)=>{
-            console.error(err);
-        });
-    }
+    //     categoriesAPI.post("/", newCategory).then((res)=> {
+    //         updateCategories();
+    //         setCategoryName("");
+    //     }).catch((err)=>{
+    //         console.error(err);
+    //     });
+    // }
 
     return (
         <Menu>
@@ -63,6 +74,7 @@ function CategoryMenu ({entry, categories, updateEntries, updateCategories}) {
                 size="md"
                 color={useColorModeValue("blackAlpha.500", "whiteAlpha.400")}
                 _hover={{backgroundColor: useColorModeValue("blackAlpha.100", "whiteAlpha.100")}}
+                onClick={()=>fetchCategories()}
             />
             <MenuList 
                 bg={bg} 
@@ -70,7 +82,7 @@ function CategoryMenu ({entry, categories, updateEntries, updateCategories}) {
                 border="none"
                 boxShadow="0 5px 4px rgba(0, 0, 0, 0.08), 0 5px 8px rgba(0, 0, 0, 0.2)"
             >
-                <Box display="flex" justifyContent="center">
+                {/* <Box display="flex" justifyContent="center">
                     <form onSubmit={submitNewCategory}>
                         <Input 
                             type="text" 
@@ -82,7 +94,7 @@ function CategoryMenu ({entry, categories, updateEntries, updateCategories}) {
                             _focus={{}}
                         />
                     </form>
-                </Box>
+                </Box> */}
                 <MenuItem w="100%" display="flex" gap={2} onClick={(e) => setCategory("")}>
                     <Text fontSize="sm">none</Text>
                 </MenuItem>

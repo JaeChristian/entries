@@ -27,10 +27,10 @@ function Login() {
 
     // If login was success, or if login token exists then redirect to home
     if(success) {
-        return <Navigate to="/home"/>;
+        return <Navigate to="/home/all"/>;
     }
     if(localStorage.getItem("token") !== null) {
-        return <Navigate to="/home"/>;
+        return <Navigate to="/home/all"/>;
     }
     return(
         <Box mt={{base: 5, md: 8}}>
