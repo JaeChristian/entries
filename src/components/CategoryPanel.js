@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 function CategoryPanel() {
+    const highlightedColor = "rgba(255,255,255,0.08)"
     const [categories, setCategories] = useState([]);
     // Decrypted JWT token
     const authUser = JSON.parse(atob(localStorage.getItem("token")?.split(".")[1]));
@@ -30,18 +31,18 @@ function CategoryPanel() {
     }, []);
 
     return(
-        <Box ml={4} w="300px" position="absolute" left="0" display={{base: "none", md: "flex"}} flexDir="column" gap={2}>
-            <Box p={2}><StarIcon/> <NavLink to="/home/all" exact>Entries</NavLink></Box>
+        <>
+            <Box p={2}><StarIcon/> <Link as={NavLink} to="/home/all" exact _focus={{background: highlightedColor}}>Entries</Link></Box>
             {
                 categories.map((category)=>{
                     return(
                         <div key={category._id}>
-                            <Box p={2}><ChevronRightIcon/> <NavLink to={"/home/" + category._id}>{category.name}</NavLink></Box>
+                            <Box p={2}><ChevronRightIcon/> <Link as={NavLink} to={"/home/" + category._id} _focus={{background: highlightedColor}}>{category.name}</Link></Box>
                         </div>
                     );
                 })
             }
-        </Box>
+        </>
     );
 }
 export default CategoryPanel

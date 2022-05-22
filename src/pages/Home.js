@@ -1,6 +1,7 @@
 import ContentLayout from "../layouts/ContentLayout";
 import { Navigate, Route, Routes, Outlet } from "react-router-dom";
 import CategoryPanel from "../components/CategoryPanel";
+import {Box} from "@chakra-ui/react"
 
 function Home() {
 
@@ -12,7 +13,9 @@ function Home() {
 
     return(
         <>
-            <CategoryPanel/>
+            <Box ml={4} w="300px" position="absolute" left="0" display={{base: "none", xl: "flex"}} flexDir="column" gap={2}>
+                <CategoryPanel/>
+            </Box>
             <ContentLayout showNav={true}>
                 <Outlet/>
             </ContentLayout>
