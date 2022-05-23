@@ -1,14 +1,9 @@
-import { Box, shouldForwardProp, Textarea, chakra, useDisclosure, Collapse, Button, Text, useColorModeValue} from "@chakra-ui/react";
+import { Box, shouldForwardProp, Textarea, chakra, useDisclosure, Collapse, Button, Text, useColorModeValue, IconButton} from "@chakra-ui/react";
 import { useState, useRef} from "react";
 import {motion} from "framer-motion";
 import EntriesContainer from "./EntriesContainer";
 import axios from "axios";
-
-const AnimatedDiv = chakra(motion.div, {
-    shouldForwardProp: prop=> {
-        return shouldForwardProp(prop) || prop === "transition"
-    }
-});
+import { AddIcon } from "@chakra-ui/icons";
 
 function PostEntry({showAll}){
     const entriesApi = axios.create({
@@ -112,26 +107,51 @@ function PostEntry({showAll}){
                         required
                     />
                     <Collapse in={isOpen} animateOpacity>
-                        <Box p={2} align="right">
-                            <Button 
-                                onClick={(e) => clearText(e)} 
-                                height="30px"
-                                mr={4}
-                                variant="link"
-                            >
-                                <Text fontWeight="400">Clear</Text>
-                            </Button>
-                            <Button 
-                                onClick={(e) => onSubmit(e)} 
-                                height="30px" 
-                                variant={useColorModeValue("solid", "outline")}
-                                borderColor="green.200"
-                                color={useColorModeValue(null, "green.200")}
-                                bg={useColorModeValue("orange.200")}
-                                _hover={useColorModeValue({bg: "orange.300"})}
-                            >
-                                <Text fontWeight="400">Done</Text>
-                            </Button>
+                        <Box
+                            display="flex"
+                            justifyContent="space-between" 
+                            p={2}   
+                        >
+                            <Box>
+                                <label for="upload">
+                                    <Box 
+                                        borderRadius="xl"
+                                        _hover={{backgroundColor: useColorModeValue("blackAlpha.100", "whiteAlpha.100"), cursor: "pointer"}}
+                                        display="flex"
+                                        alignItems="center"
+                                        justifyContent="center"
+                                        p={2}
+                                    >
+                                    <AddIcon
+                                        bg="none"
+                                        size="sm"
+                                        color={useColorModeValue("blackAlpha.500", "whiteAlpha.300")}
+                                    />
+                                    </Box>
+                                </label>
+                                <input type="file" name="image" id="upload"/>
+                            </Box>
+                            <Box>
+                                <Button 
+                                    onClick={(e) => clearText(e)} 
+                                    height="30px"
+                                    mr={4}
+                                    variant="link"
+                                >
+                                    <Text fontWeight="400">Clear</Text>
+                                </Button>
+                                <Button 
+                                    onClick={(e) => onSubmit(e)} 
+                                    height="30px" 
+                                    variant={useColorModeValue("solid", "outline")}
+                                    borderColor="green.200"
+                                    color={useColorModeValue(null, "green.200")}
+                                    bg={useColorModeValue("orange.200")}
+                                    _hover={useColorModeValue({bg: "orange.300"})}
+                                >
+                                    <Text fontWeight="400">Done</Text>
+                                </Button>
+                            </Box>
                         </Box>
                     </Collapse>
                 </form>

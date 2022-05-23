@@ -13,3 +13,7 @@ textarea::-webkit-scrollbar{
 .entry::-webkit-scrollbar-thumb {
     background: rgba(63, 63, 63, 0.4);
   }
+
+input#upload {
+    display:none;
+ }
