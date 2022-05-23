@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Entry from "./Entry";
 
-function EntriesContainer({handleFocus, entryChange, updateEntries, categories, updateCategories, showAll}) {
+function EntriesContainer({entryChange, updateEntries, categories, updateCategories, showAll}) {
     const [entries, setEntries] = useState([]);
 
     // Decrypted JWT token
@@ -58,7 +58,7 @@ function EntriesContainer({handleFocus, entryChange, updateEntries, categories, 
 
 
     return(
-        <Flex mt={4} width="100%" flexDir="column" gap={4} onClick={(e) => handleFocus(e)}>
+        <Flex mt={4} width="100%" flexDir="column" gap={4}>
             {entries.slice(0).reverse().map((entry) => {
                 return (
                     <div key={entry._id}>

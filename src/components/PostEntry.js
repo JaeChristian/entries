@@ -19,9 +19,12 @@ function PostEntry({showAll}){
     const input1Focus = useRef(null);
     const [entryTitle, setEntryTitle] = useState("");
     const [entryBody, setEntryBody] = useState("");
+    const [selectedFile, setSelectedFile] = useState('');
+    const [previewSource, setPreviewSource] = useState();
     const [entryChange, setEntryChange] = useState(0);
     const {isOpen, onOpen, onClose} = useDisclosure();
 
+    // Collapses the post component.
     function handleFocus(e) {
         if(input1Focus.current !== document.activeElement && input2Focus.current !== document.activeElement && entryTitle === "" && entryBody === ""){
             onClose();
@@ -29,6 +32,7 @@ function PostEntry({showAll}){
         //console.log(input1Focus.current + " " + document.activeElement);
     }
 
+    // Updates the entryBody state variable and adjusts height.
     function handleEntryBodyChange(e) {
         let scHeight = e.target.scrollHeight;
         if(e?.target.value === ""){
@@ -39,9 +43,9 @@ function PostEntry({showAll}){
         setEntryBody(e.target.value);
     }
 
+    // Updates the entryTitle state variable and adjusts height.
     function handleEntryTitleChange(e) {
         let scHeight = e.target.scrollHeight;
-        console.log(scHeight);
         if(e.target.value === ""){
             setTitleTextHeight("40px");
         } else {
@@ -50,11 +54,56 @@ function PostEntry({showAll}){
         setEntryTitle(e.target.value);
     }
 
+    // Updates selectedFile and calls previewFile.
+    function handleFileInputChange(e) {
+        const file = e.target.files[0];
+        previewFile(file)
+        setSelectedFile(file);
+    }
+
+    // Uses FileReader to get the image path from the file and sets it to previewSource
+    function previewFile(file) {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = () => {
+            setPreviewSource(reader.result);
+        }
+    }
+
+    // TODO
+    // Sends post request to the image upload endpoint.
+    function uploadImage(image){
+        console.log(image, "image");
+        //
+    }
+
+    // Updates entries by updating the entryChange state variable (used in useEffect).
+    function updateEntries() {
+        setEntryChange(entryChange+1);
+    }
+
+    // Clears the entry title, body, and image.
+    function clearText() {
+        setEntryTitle("");
+        setEntryBody("");
+        setBodyTextHeight("40px");
+        setPreviewSource(null);
+    }
+
+    // Uploads new entry.
     function onSubmit(e){
+        // JSON object holding the entry title and body
         const newEntry = {
             title: entryTitle,
             body: entryBody
         }
+        
+        // If selectedFile is not null then upload the image
+        if(selectedFile){
+            uploadImage(previewSource);
+        }
+
+        // Sends post request to the API with newEntry data
         entriesApi.post("/", newEntry).then((res) => 
             {
                 console.log(res.data);
@@ -65,19 +114,12 @@ function PostEntry({showAll}){
         console.log(newEntry);
     }
 
-    function updateEntries() {
-        setEntryChange(entryChange+1);
-    }
-
-    function clearText() {
-        setEntryTitle("");
-        setEntryBody("");
-        setBodyTextHeight("40px");
-    }
-
     return (
         <>
             <Box w="100%" onFocus={onOpen} border="1px solid" borderColor={useColorModeValue("blackAlpha.300", "rgba(255,255,255,0.3)")} borderRadius="0.4rem" onMouseOver={(e) => handleFocus(e)}>
+                {previewSource && (
+                    <img src={previewSource} alt="chosen"/>
+                )}
                 <form onSubmit={onSubmit}>
                     <Collapse in={isOpen} animateOpacity>
                         <Textarea
@@ -129,7 +171,12 @@ function PostEntry({showAll}){
                                     />
                                     </Box>
                                 </label>
-                                <input type="file" name="image" id="upload"/>
+                                <input 
+                                    type="file" 
+                                    name="image" 
+                                    id="upload"
+                                    onChange={handleFileInputChange}
+                                />
                             </Box>
                             <Box>
                                 <Button 
