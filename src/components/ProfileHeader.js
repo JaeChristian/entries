@@ -23,7 +23,7 @@ function ProfileHeader({userId}) {
             mb={8}
         >
             <Heading
-                fontSize="4xl"
+                fontSize="2xl"
                 fontWeight="500"
             >{user.username}</Heading>
         </Box>

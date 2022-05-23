@@ -2,16 +2,27 @@ import {Box, Heading, Container, Text, Flex, Image, Menu, IconButton, useColorMo
 import {HamburgerIcon} from "@chakra-ui/icons";
 import styled from "@emotion/styled";
 import ModeToggleButton from "./darkModeToggler";
-import { Navigate } from "react-router-dom";
+import { Navigate, NavLink } from "react-router-dom";
 import {useEffect, useState} from "react";
+
+const Link = styled.a`
+        width: 100%;
+        font-weight: 300;
+    `;
+
+function MenuLink({to, title, onClick}) {
+    return(
+        <MenuItem w="100%">
+            <Link as={NavLink} to={to} onClick={onClick}>{title}</Link>
+        </MenuItem>
+    );
+}
 
 function Navbar(){
     const bg = useColorModeValue('white', '#181818');
     const [redirect, setRedirect] = useState(false);
-    const Link = styled.a`
-        width: 100%;
-        font-weight: 300;
-    `;
+    const authUser = JSON.parse(atob(localStorage.getItem("token")?.split(".")[1]));
+
     function killToken() {
         localStorage.removeItem("token");
         setRedirect(true);
@@ -40,7 +51,7 @@ function Navbar(){
                 alignItems="center"
             >
                 <ModeToggleButton/>
-                <Heading fontSize="2xl" fontWeight="500">entries</Heading>
+                <NavLink to="/home/all"><Heading fontSize="2xl" fontWeight="500">entries</Heading></NavLink>
                 <Box display="inline-block">
                     <Menu>
                         <MenuButton
@@ -51,15 +62,10 @@ function Navbar(){
                             borderColor={useColorModeValue("blackAlpha.300", "rgba(255,255,255,0.3)")}
                         />
                         <MenuList bg={bg} border="none" boxShadow="0 5px 4px rgba(0, 0, 0, 0.08), 0 5px 8px rgba(0, 0, 0, 0.2)">
-                            <MenuItem w="100%">
-                                <Link href="/home">Home</Link>
-                            </MenuItem>
-                            <MenuItem w="100%">
-                                <Link href="javascript:void(0)">Settings</Link>
-                            </MenuItem>
-                            <MenuItem w="100%">
-                                <Link href="/login" onClick={() => killToken()}>Logout</Link>
-                            </MenuItem>
+                            <MenuLink to="/home/all" title="Home"/>
+                            <MenuLink to={"/profile/" + authUser.id} title="Profile"/>
+                            <MenuLink to="javascript:void(0)" title="Settings"/>
+                            <MenuLink to="/login" onClick={() => killToken()} title="Logout"/>
                         </MenuList>
                     </Menu>
                 </Box>
@@ -67,4 +73,6 @@ function Navbar(){
         </Box>
     );
 }
+
+
 export default Navbar;
