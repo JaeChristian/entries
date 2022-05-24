@@ -37,7 +37,9 @@ function EntryModal({categoryName, dateToString, entry, isOpen, onClose, updateE
     useEffect(()=>{
         setTitle(entry.title);
         setBody(entry.body);
-    }, [isOpen]);
+        setTitleTextHeight("40px");
+        setBodyTextHeight("200px");
+    }, [isOpen, entry.title, entry.body]);
 
     function handleTitleChange(e) {
         let scHeight = e.target.scrollHeight;
@@ -95,9 +97,6 @@ function EntryModal({categoryName, dateToString, entry, isOpen, onClose, updateE
                 bg={bg}
                 minW={{base: "95%", lg: "container.md"}}
                 minH="200px"
-                onMouseEnter={onOpenOptions} 
-                onMouseLeave={onCloseOptions}
-                onFocus={onOpenOptions}
             >
                 {
                     entry.imageURL && (
@@ -109,7 +108,9 @@ function EntryModal({categoryName, dateToString, entry, isOpen, onClose, updateE
                             <Image 
                                 src={entry.imageURL} 
                                 alt="entry image"
-                                
+                                maxH="500px"
+                                w="100%"
+                                objectFit="cover"
                             />
                             <Fade in={isOpenImage}>
                                 <IconButton 
@@ -131,8 +132,10 @@ function EntryModal({categoryName, dateToString, entry, isOpen, onClose, updateE
                 }
                 <Box
                     p={4}
+                    onMouseEnter={onOpenOptions} 
+                    onMouseLeave={onCloseOptions}
+                    onFocus={onOpenOptions}
                 >
-                    
                     <form onSubmit={onSubmit}>
                         <Heading
                             fontSize="lg"
@@ -140,7 +143,7 @@ function EntryModal({categoryName, dateToString, entry, isOpen, onClose, updateE
                         >
                             <Textarea
                                 resize="none"
-                                minH="40px"
+                                minH={TitleTextHeight}
                                 border="none"
                                 _focus={{borderColor: "whiteAlpha.400"}}
                                 value={title}

@@ -1,8 +1,6 @@
-import {Box, Text, Heading, IconButton, Icon, useDisclosure, Fade, Textarea, useColorModeValue, Image} from "@chakra-ui/react";
+import {Box, Text, Heading, useDisclosure, useColorModeValue, Image} from "@chakra-ui/react";
 import axios from "axios";
-import {DeleteIcon} from "@chakra-ui/icons";
 import EntryModal from "./EntryModal";
-import CategoryMenu from "./CategoryMenu";
 import { useEffect, useState } from "react";
 import EntryOptions from "./EntryOptions";
 import DisplayCategory from "./DisplayCategory";
@@ -59,18 +57,17 @@ function Entry({entry, updateEntries, categories, updateCategories}){
     const [categoryName, setCategoryName] = useState(null);
 
     useEffect(()=>{
-       fetchCategoryName();
-    },[entry]);
-
-    function fetchCategoryName() {
-        if(entry.categoryId !== "") {
-            categoriesAPI.get("/" + entry.categoryId).then((res) => {
-                setCategoryName(res.data.name);
-            });
-        } else {
-            setCategoryName("");
+        const fetchCategoryName = () => {
+            if(entry.categoryId !== "") {
+                categoriesAPI.get("/" + entry.categoryId).then((res) => {
+                    setCategoryName(res.data.name);
+                });
+            } else {
+                setCategoryName("");
+            }
         }
-    }
+       fetchCategoryName();
+    },[entry, categoriesAPI]);
 
     function deletePost() {
         entriesApi.delete("/" + entry._id).then((res)=>{

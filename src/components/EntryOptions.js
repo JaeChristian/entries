@@ -12,6 +12,7 @@ function EntryOptions({isOpen, deletePost, entry, categories, updateEntries, upd
                 size="sm"
                 color={useColorModeValue("blackAlpha.500", "whiteAlpha.300")}
                 _hover={{backgroundColor: useColorModeValue("blackAlpha.100", "whiteAlpha.100")}}
+                _focus={{}}
                 onClick={() => deletePost()}
             />
             <CategoryMenu entry={entry} categories={categories} updateEntries={updateEntries} updateCategories={updateCategories}/>
