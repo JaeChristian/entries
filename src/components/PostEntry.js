@@ -61,7 +61,7 @@ function PostEntry({showAll}){
         setSelectedFile(file);
     }
 
-    // Uses FileReader to get the image path from the file and sets it to previewSource
+    // Uses FileReader to get the image from the file and sets it to previewSource
     function previewFile(file) {
         const reader = new FileReader();
         reader.readAsDataURL(file);
@@ -72,10 +72,10 @@ function PostEntry({showAll}){
 
     // TODO
     // Sends post request to the image upload endpoint.
-    function uploadImage(image){
-        console.log(image, "image");
-        //
-    }
+    // function uploadImage(image){
+    //     console.log(image, "image");
+    //     //
+    // }
 
     // Updates entries by updating the entryChange state variable (used in useEffect).
     function updateEntries() {
@@ -100,7 +100,7 @@ function PostEntry({showAll}){
         
         // If selectedFile is not null then upload the image
         if(selectedFile){
-            uploadImage(previewSource);
+            newEntry.image = previewSource;
         }
 
         // Sends post request to the API with newEntry data
@@ -111,7 +111,7 @@ function PostEntry({showAll}){
                 updateEntries();
             }
         );
-        console.log(newEntry);
+        console.log(newEntry, "new post");
     }
 
     return (

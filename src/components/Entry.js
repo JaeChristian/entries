@@ -1,4 +1,4 @@
-import {Box, Text, Heading, IconButton, Icon, useDisclosure, Fade, Textarea, useColorModeValue} from "@chakra-ui/react";
+import {Box, Text, Heading, IconButton, Icon, useDisclosure, Fade, Textarea, useColorModeValue, Image} from "@chakra-ui/react";
 import axios from "axios";
 import {DeleteIcon} from "@chakra-ui/icons";
 import EntryModal from "./EntryModal";
@@ -90,6 +90,7 @@ function Entry({entry, updateEntries, categories, updateCategories}){
             onMouseLeave={onClose}
             onFocus={onOpen}
         >
+            
             <Box
                 _hover={{cursor: "pointer"}} 
                 onClick={onOpenModal}  
@@ -97,6 +98,7 @@ function Entry({entry, updateEntries, categories, updateCategories}){
                 flexDir="column"
                 gap={2}
             >
+                <Image src={entry.imageURL} w="100%"/>
                 <Heading 
                     fontSize="lg" 
                     fontWeight="500" 

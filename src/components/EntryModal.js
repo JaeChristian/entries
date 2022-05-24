@@ -86,7 +86,7 @@ function EntryModal({entry, isOpen, onOpen, onClose, updateEntries}) {
             <ModalOverlay/>
             <ModalContent
                 bg={bg}
-                minW={{base: "95%", md: "container.lg"}}
+                minW={{base: "95%", lg: "container.lg"}}
                 minH="200px"
             >
                 <Box
