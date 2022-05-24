@@ -4,6 +4,8 @@ import {DeleteIcon} from "@chakra-ui/icons";
 import EntryModal from "./EntryModal";
 import CategoryMenu from "./CategoryMenu";
 import { useEffect, useState } from "react";
+import EntryOptions from "./EntryOptions";
+import DisplayCategory from "./DisplayCategory";
 
 function Entry({entry, updateEntries, categories, updateCategories}){
     const entriesApi = axios.create({
@@ -98,7 +100,8 @@ function Entry({entry, updateEntries, categories, updateCategories}){
                 flexDir="column"
                 gap={2}
             >
-                <Image src={entry.imageURL} w="100%"/>
+                {entry.imageURL && (<Image src={entry.imageURL} maxH="500px" w="100%" objectFit="cover"/>)}
+                
                 <Heading 
                     fontSize="lg" 
                     fontWeight="500" 
@@ -118,49 +121,19 @@ function Entry({entry, updateEntries, categories, updateCategories}){
                     <Box fontSize="16px" whiteSpace="pre-wrap">{entry.body}</Box>
                 </Box>
             </Box>
-            <Box display="flex" mt={4} justifyContent="flex-end">
-                { categoryName ? (
-                    
-                        <Text 
-                            maxW="auto"
-                            ml={3}
-                            mr={3}
-                            fontSize="xs"
-                            p="3px"
-                            pr={3}
-                            pl={3}
-                            bg="rgba(0,0,0,0.08)"
-                            borderRadius="full"
-                            minW="40px"
-                            align="center"
-                            fontWeight="500"
-                        >
-                            {categoryName}
-                        </Text>
-                ) : null}
-                
-            </Box>
+            { categoryName && (
+                <DisplayCategory categoryName={categoryName}/>
+            )}
             <Box 
                 pl={1.5}
                 display="flex" 
                 justifyContent="space-between" 
                 alignItems="center"
             >
-                <Fade in={isOpen}>
-                    <IconButton 
-                        icon={<DeleteIcon/>} 
-                        bg="none" 
-                        borderRadius="xl" 
-                        size="sm"
-                        color={useColorModeValue("blackAlpha.500", "whiteAlpha.300")}
-                        _hover={{backgroundColor: useColorModeValue("blackAlpha.100", "whiteAlpha.100")}}
-                        onClick={() => deletePost()}
-                    />
-                    <CategoryMenu entry={entry} categories={categories} updateEntries={updateEntries} updateCategories={updateCategories}/>
-                </Fade>
+                <EntryOptions isOpen={isOpen} deletePost={deletePost} entry={entry} categories={categories} updateEntries={updateEntries} updateCategories={updateCategories}/>
                 <Text fontSize="xs" align="right" justifySelf="flex-end" mr={4}>{dateToString}</Text>
             </Box>
-            <EntryModal entry={entry} isOpen={isOpenModal} onOpen={onOpenModal} onClose={onCloseModal} updateEntries={updateEntries}/>
+            <EntryModal categoryName={categoryName} dateToString={dateToString} entry={entry} isOpen={isOpenModal} onOpen={onOpenModal} onClose={onCloseModal} deletePost={deletePost} categories={categories} updateEntries={updateEntries} updateCategories={updateCategories}/>
         </Box>
     );
 }

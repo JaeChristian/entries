@@ -1,8 +1,11 @@
-import {Modal, ModalOverlay, ModalContent, Box, Heading, Text, Textarea, Button, useColorModeValue} from "@chakra-ui/react";
+import {Modal, ModalOverlay, ModalContent, Box, Fade, Heading, Text, Textarea, Button, useColorModeValue, Image, useDisclosure, IconButton} from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import EntryOptions from "./EntryOptions";
+import DisplayCategory from "./DisplayCategory";
+import {DeleteIcon} from "@chakra-ui/icons"
 
-function EntryModal({entry, isOpen, onOpen, onClose, updateEntries}) {
+function EntryModal({categoryName, dateToString, entry, isOpen, onClose, updateEntries, deletePost, categories, updateCategories}) {
     const entriesApi = axios.create({
         headers: {
             Authorization: `bearer ${localStorage.getItem("token")}`,
@@ -10,34 +13,25 @@ function EntryModal({entry, isOpen, onOpen, onClose, updateEntries}) {
         baseURL: "/entries"
     });
 
-    // Needed to turn date to string
-    const months = 
-    [
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July',
-        'August',
-        'September',
-        'October',
-        'November',
-        'December'
-    ]
-    const date = new Date(entry.date);
-    const year = date.getFullYear();
-    const day = date.getDate();
-    const month = months[date.getMonth()];
-    const dateToString = `${month} ${day}, ${year}`;
-
     const [TitleTextHeight, setTitleTextHeight] = useState("40px");
     const [BodyTextHeight, setBodyTextHeight] = useState("200px");
     const [title, setTitle] = useState(entry.title);
     const [body, setBody] = useState(entry.body);
 
     const bg = useColorModeValue("#EAEAEA", "#1e1e1e");
+
+    // Disclosure hook for entry modal
+    const {
+        isOpen: isOpenOptions,
+        onOpen: onOpenOptions,
+        onClose: onCloseOptions,
+    } = useDisclosure();
+
+    const {
+        isOpen: isOpenImage,
+        onOpen: onOpenImage,
+        onClose: onCloseImage,
+    } = useDisclosure();
 
     // Reset title and body variables when modal is closed
     useEffect(()=>{
@@ -65,6 +59,19 @@ function EntryModal({entry, isOpen, onOpen, onClose, updateEntries}) {
         setBody(e.target.value);
     }
 
+    function deleteImage() {
+        const newEntry = {
+            imageURL: ""
+        }
+
+        entriesApi.patch("/" + entry._id, newEntry).then((res) => {
+            console.log(res.data);
+            updateEntries();
+        }).catch((err) => {
+            console.error(err);
+        });
+    }
+
     function onSubmit(e) {
         e.preventDefault();
         
@@ -86,12 +93,46 @@ function EntryModal({entry, isOpen, onOpen, onClose, updateEntries}) {
             <ModalOverlay/>
             <ModalContent
                 bg={bg}
-                minW={{base: "95%", lg: "container.lg"}}
+                minW={{base: "95%", lg: "container.md"}}
                 minH="200px"
+                onMouseEnter={onOpenOptions} 
+                onMouseLeave={onCloseOptions}
+                onFocus={onOpenOptions}
             >
+                {
+                    entry.imageURL && (
+                        <Box
+                            onMouseEnter={onOpenImage}
+                            onMouseLeave={onCloseImage}
+                            onFocus={onOpenImage}
+                        >
+                            <Image 
+                                src={entry.imageURL} 
+                                alt="entry image"
+                                
+                            />
+                            <Fade in={isOpenImage}>
+                                <IconButton 
+                                    icon={<DeleteIcon/>} 
+                                    bg="blackAlpha.700" 
+                                    borderRadius="xl" 
+                                    size="sm"
+                                    color={"whiteAlpha.500"}
+                                    _hover={{backgroundColor: "black"}}
+                                    _focus={{}}
+                                    onClick={() => deleteImage()}
+                                    position="absolute"
+                                    left="96%"
+                                    transform="translate(-50%, -128%)"
+                                />
+                            </Fade>
+                        </Box>
+                    )
+                }
                 <Box
                     p={4}
                 >
+                    
                     <form onSubmit={onSubmit}>
                         <Heading
                             fontSize="lg"
@@ -107,6 +148,7 @@ function EntryModal({entry, isOpen, onOpen, onClose, updateEntries}) {
                                 fontWeight="500"
                                 onChange={(e) => handleTitleChange(e)}
                                 p={0}
+                                placeholder="Title"
                             />
                         </Heading>
                         <Textarea
@@ -120,9 +162,16 @@ function EntryModal({entry, isOpen, onOpen, onClose, updateEntries}) {
                             minH={BodyTextHeight}
                             p={0}
                             overflowX="hidden"
+                            placeholder="Entry"
                         />
-                        <Box align="right" mt={2}>
-                            <Text fontSize="xs" align="right">{dateToString}</Text>
+                        <DisplayCategory categoryName={categoryName} mr={0}/>
+                        <Box 
+                            display="flex" 
+                            justifyContent="space-between" 
+                            alignItems="center"
+                        >
+                            <EntryOptions isOpen={isOpenOptions} deletePost={deletePost} entry={entry} categories={categories} updateEntries={updateEntries} updateCategories={updateCategories}/>
+                            <Text fontSize="xs" justifySelf="flex-end">{dateToString}</Text>
                         </Box>
                         <Box align="right" mt={2}>
                             <Button 
