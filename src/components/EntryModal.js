@@ -1,5 +1,5 @@
 import {Modal, ModalOverlay, ModalContent, Box, Fade, Heading, Text, Textarea, Button, useColorModeValue, Image, useDisclosure, IconButton} from "@chakra-ui/react";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import EntryOptions from "./EntryOptions";
 import DisplayCategory from "./DisplayCategory";
@@ -17,14 +17,6 @@ function EntryModal({categoryName, dateToString, entry, isOpen, onClose, updateE
     const [BodyTextHeight, setBodyTextHeight] = useState("0px");
     const [title, setTitle] = useState(entry.title);
     const [body, setBody] = useState(entry.body);
-
-    // useCallback used to get the entry body node's scroll height and set it to the modal height
-    const entryBodyTextarea = useCallback(node => {
-        if(node != null) {
-            //console.log(node.scrollHeight, "ref");
-            setBodyTextHeight(node.scrollHeight + "px");
-        }
-    });
 
     const bg = useColorModeValue("#EAEAEA", "#1e1e1e");
 
@@ -47,6 +39,14 @@ function EntryModal({categoryName, dateToString, entry, isOpen, onClose, updateE
         setBody(entry.body);
         setTitleTextHeight("40px");
     }, [isOpen, entry.title, entry.body]);
+
+    // useCallback used to get the entry body node's scroll height and set it to the modal height
+    const entryBodyTextarea = useCallback(node => {
+        if(node != null) {
+            //console.log(node.scrollHeight, "ref");
+            setBodyTextHeight(node.scrollHeight + "px");
+        }
+    }, []);
 
     function handleTitleChange(e) {
         let scHeight = e.target.scrollHeight;
@@ -169,7 +169,7 @@ function EntryModal({categoryName, dateToString, entry, isOpen, onClose, updateE
                             fontSize="md"
                             fontWeight="400"
                             onChange={(e) => handleBodyChange(e)}
-                            minH={BodyTextHeight}
+                            h={BodyTextHeight}
                             p={0}
                             overflowX="hidden"
                             placeholder="Entry"
