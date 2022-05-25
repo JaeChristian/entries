@@ -8,7 +8,7 @@ function ContentLayout({children, showNav, containerSize = "container.md"}) {
                     <Navbar/>
                 ) : null 
             }
-            <Box mt={{base: "75px", md: "80px"}}>
+            <Box mt="90px">
                 <Container maxW={{base: "100%", md: containerSize}} display="flex" flexDir="column" alignItems="center" zIndex="2" mb={6}>
                     {children}
                 </Container>

@@ -1,7 +1,7 @@
 import {Box, Text, Heading, useDisclosure, useColorModeValue, Image} from "@chakra-ui/react";
 import axios from "axios";
 import EntryModal from "./EntryModal";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef} from "react";
 import EntryOptions from "./EntryOptions";
 import DisplayCategory from "./DisplayCategory";
 

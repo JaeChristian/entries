@@ -1,5 +1,5 @@
 import {Modal, ModalOverlay, ModalContent, Box, Fade, Heading, Text, Textarea, Button, useColorModeValue, Image, useDisclosure, IconButton} from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import EntryOptions from "./EntryOptions";
 import DisplayCategory from "./DisplayCategory";
@@ -14,9 +14,17 @@ function EntryModal({categoryName, dateToString, entry, isOpen, onClose, updateE
     });
 
     const [TitleTextHeight, setTitleTextHeight] = useState("40px");
-    const [BodyTextHeight, setBodyTextHeight] = useState("200px");
+    const [BodyTextHeight, setBodyTextHeight] = useState("0px");
     const [title, setTitle] = useState(entry.title);
     const [body, setBody] = useState(entry.body);
+
+    // useCallback used to get the entry body node's scroll height and set it to the modal height
+    const entryBodyTextarea = useCallback(node => {
+        if(node != null) {
+            //console.log(node.scrollHeight, "ref");
+            setBodyTextHeight(node.scrollHeight + "px");
+        }
+    });
 
     const bg = useColorModeValue("#EAEAEA", "#1e1e1e");
 
@@ -38,7 +46,6 @@ function EntryModal({categoryName, dateToString, entry, isOpen, onClose, updateE
         setTitle(entry.title);
         setBody(entry.body);
         setTitleTextHeight("40px");
-        setBodyTextHeight("200px");
     }, [isOpen, entry.title, entry.body]);
 
     function handleTitleChange(e) {
@@ -166,6 +173,7 @@ function EntryModal({categoryName, dateToString, entry, isOpen, onClose, updateE
                             p={0}
                             overflowX="hidden"
                             placeholder="Entry"
+                            ref={entryBodyTextarea}
                         />
                         <DisplayCategory categoryName={categoryName} mr={0}/>
                         <Box 
