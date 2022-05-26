@@ -71,7 +71,7 @@ function CategoryMenu ({entry, updateEntries}) {
                 _focus={{borderColor: "whiteAlpha.400"}}
                 bg="none" 
                 borderRadius="xl" 
-                size="md"
+                size="sm"
                 color={useColorModeValue("blackAlpha.500", "whiteAlpha.400")}
                 _hover={{backgroundColor: useColorModeValue("blackAlpha.100", "whiteAlpha.100")}}
                 onClick={()=>fetchCategories()}

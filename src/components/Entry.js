@@ -126,6 +126,7 @@ function Entry({entry, updateEntries, categories, updateCategories}){
                 display="flex" 
                 justifyContent="space-between" 
                 alignItems="center"
+                mb={2}
             >
                 <EntryOptions isOpen={isOpen} deletePost={deletePost} entry={entry} categories={categories} updateEntries={updateEntries} updateCategories={updateCategories}/>
                 <Text fontSize="xs" align="right" justifySelf="flex-end" mr={4}>{dateToString}</Text>

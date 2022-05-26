@@ -1,6 +1,7 @@
 import {useColorModeValue, Fade, IconButton} from "@chakra-ui/react";
 import {DeleteIcon} from "@chakra-ui/icons";
 import CategoryMenu from "./CategoryMenu";
+import ColorPicker from "./ColorPicker";
 
 function EntryOptions({isOpen, deletePost, entry, categories, updateEntries, updateCategories}) {
     return(
@@ -16,6 +17,7 @@ function EntryOptions({isOpen, deletePost, entry, categories, updateEntries, upd
                 onClick={() => deletePost()}
             />
             <CategoryMenu entry={entry} categories={categories} updateEntries={updateEntries} updateCategories={updateCategories}/>
+            <ColorPicker/>
         </Fade>
     );
 }

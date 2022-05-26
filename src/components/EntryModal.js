@@ -46,7 +46,7 @@ function EntryModal({categoryName, dateToString, entry, isOpen, onClose, updateE
             //console.log(node.scrollHeight, "ref");
             setBodyTextHeight(node.scrollHeight + "px");
         }
-    }, []);
+    }, [isOpen]);
 
     function handleTitleChange(e) {
         let scHeight = e.target.scrollHeight;
