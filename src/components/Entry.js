@@ -6,6 +6,19 @@ import EntryOptions from "./EntryOptions";
 import DisplayCategory from "./DisplayCategory";
 
 function Entry({entry, updateEntries, categories, updateCategories}){
+    // Colors
+    const gray = useColorModeValue("#EAEAEA", "#1e1e1e");
+    const red = useColorModeValue("red.300", "red.700");
+    const orange = useColorModeValue("rgb(252,186,6)", "yellow.700");
+    const yellow = useColorModeValue("yellow.300", "yellow.600");
+    const teal = useColorModeValue("teal.200", "teal.600");
+    const green = useColorModeValue("green.200", "green.600");
+    const blue = useColorModeValue("blue.100", "blue.700");
+    const cyan = useColorModeValue("cyan.100", "cyan.800");
+    const purple = useColorModeValue("purple.200", "purple.700");
+    const pink = useColorModeValue("pink.200", "pink.900");
+    const brown = useColorModeValue("rgb(230,201,168)", "rgb(68,47,26)");
+
     const entriesApi = axios.create({
         headers: {
             Authorization: `bearer ${localStorage.getItem("token")}`,
@@ -42,10 +55,10 @@ function Entry({entry, updateEntries, categories, updateCategories}){
     const month = months[date.getMonth()];
     const dateToString = `${month} ${day}, ${year}`;
 
-    const bg = useColorModeValue("#EAEAEA", "#1e1e1e");
-
     // Disclosure hook for entry options popup
     const {isOpen, onOpen, onClose} = useDisclosure();
+
+    const [bg, setBg] = useState("");
 
     // Disclosure hook for entry modal
     const {
@@ -55,6 +68,42 @@ function Entry({entry, updateEntries, categories, updateCategories}){
     } = useDisclosure();
 
     const [categoryName, setCategoryName] = useState(null);
+
+    useEffect(()=>{
+        if(entry.color === "gray" || null) {
+            setBg(gray);
+        }
+        if(entry.color === "red") {
+            setBg(red);
+        }
+        if(entry.color === "orange") {
+            setBg(orange);
+        }
+        if(entry.color === "yellow") {
+            setBg(yellow);
+        }
+        if(entry.color === "teal") {
+            setBg(teal);
+        }
+        if(entry.color === "green") {
+            setBg(green);
+        }
+        if(entry.color === "blue") {
+            setBg(cyan);
+        }
+        if(entry.color === "cyan") {
+            setBg(cyan);
+        }
+        if(entry.color === "purple") {
+            setBg(purple);
+        }
+        if(entry.color === "pink") {
+            setBg(pink);
+        }
+        if(entry.color === "brown") {
+            setBg(brown);
+        }
+    }, [entry]);
 
     useEffect(()=>{
         const fetchCategoryName = () => {
@@ -131,7 +180,7 @@ function Entry({entry, updateEntries, categories, updateCategories}){
                 <EntryOptions isOpen={isOpen} deletePost={deletePost} entry={entry} categories={categories} updateEntries={updateEntries} updateCategories={updateCategories}/>
                 <Text fontSize="xs" align="right" justifySelf="flex-end" mr={4}>{dateToString}</Text>
             </Box>
-            <EntryModal categoryName={categoryName} dateToString={dateToString} entry={entry} isOpen={isOpenModal} onOpen={onOpenModal} onClose={onCloseModal} deletePost={deletePost} categories={categories} updateEntries={updateEntries} updateCategories={updateCategories}/>
+            <EntryModal bg={bg} categoryName={categoryName} dateToString={dateToString} entry={entry} isOpen={isOpenModal} onOpen={onOpenModal} onClose={onCloseModal} deletePost={deletePost} categories={categories} updateEntries={updateEntries} updateCategories={updateCategories}/>
         </Box>
     );
 }

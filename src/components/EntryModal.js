@@ -5,7 +5,7 @@ import EntryOptions from "./EntryOptions";
 import DisplayCategory from "./DisplayCategory";
 import {DeleteIcon} from "@chakra-ui/icons"
 
-function EntryModal({categoryName, dateToString, entry, isOpen, onClose, updateEntries, deletePost, categories, updateCategories}) {
+function EntryModal({bg, categoryName, dateToString, entry, isOpen, onClose, updateEntries, deletePost, categories, updateCategories}) {
     const entriesApi = axios.create({
         headers: {
             Authorization: `bearer ${localStorage.getItem("token")}`,
@@ -17,8 +17,6 @@ function EntryModal({categoryName, dateToString, entry, isOpen, onClose, updateE
     const [BodyTextHeight, setBodyTextHeight] = useState("0px");
     const [title, setTitle] = useState(entry.title);
     const [body, setBody] = useState(entry.body);
-
-    const bg = useColorModeValue("#EAEAEA", "#1e1e1e");
 
     // Disclosure hook for entry modal
     const {

@@ -17,7 +17,7 @@ function EntryOptions({isOpen, deletePost, entry, categories, updateEntries, upd
                 onClick={() => deletePost()}
             />
             <CategoryMenu entry={entry} categories={categories} updateEntries={updateEntries} updateCategories={updateCategories}/>
-            <ColorPicker/>
+            <ColorPicker entry={entry} updateEntries={updateEntries}/>
         </Fade>
     );
 }
