@@ -1,4 +1,4 @@
-import {Box, Text, Heading, useDisclosure, useColorModeValue, Image} from "@chakra-ui/react";
+import {Box, Text, Heading, useDisclosure, useColorModeValue, useColorMode, Image} from "@chakra-ui/react";
 import axios from "axios";
 import EntryModal from "./EntryModal";
 import { useEffect, useState, useRef} from "react";
@@ -15,9 +15,11 @@ function Entry({entry, updateEntries, categories, updateCategories}){
     const green = useColorModeValue("green.200", "green.600");
     const blue = useColorModeValue("blue.100", "blue.700");
     const cyan = useColorModeValue("cyan.100", "cyan.800");
-    const purple = useColorModeValue("purple.200", "purple.700");
+    const purple = useColorModeValue("purple.200", "purple.800");
     const pink = useColorModeValue("pink.200", "pink.900");
     const brown = useColorModeValue("rgb(230,201,168)", "rgb(68,47,26)");
+
+    const {colorMode, toggleColorMode} = useColorMode();
 
     const entriesApi = axios.create({
         headers: {
@@ -58,7 +60,7 @@ function Entry({entry, updateEntries, categories, updateCategories}){
     // Disclosure hook for entry options popup
     const {isOpen, onOpen, onClose} = useDisclosure();
 
-    const [bg, setBg] = useState("");
+    const [bg, setBg] = useState();
 
     // Disclosure hook for entry modal
     const {
@@ -103,7 +105,7 @@ function Entry({entry, updateEntries, categories, updateCategories}){
         if(entry.color === "brown") {
             setBg(brown);
         }
-    }, [entry]);
+    }, [entry, colorMode]);
 
     useEffect(()=>{
         const fetchCategoryName = () => {

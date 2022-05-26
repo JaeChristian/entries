@@ -43,7 +43,7 @@ function ColorPicker({entry, updateEntries}) {
     const green = useColorModeValue("green.200", "green.600");
     const blue = useColorModeValue("blue.100", "blue.700");
     const cyan = useColorModeValue("cyan.100", "cyan.800");
-    const purple = useColorModeValue("purple.200", "purple.700");
+    const purple = useColorModeValue("purple.200", "purple.800");
     const pink = useColorModeValue("pink.200", "pink.900");
     const brown = useColorModeValue("rgb(230,201,168)", "rgb(68,47,26)");
 
