@@ -1,8 +1,8 @@
-import { Box, shouldForwardProp, Textarea, chakra, useDisclosure, Collapse, Button, Text, useColorModeValue, IconButton} from "@chakra-ui/react";
+import { Box, Textarea, useDisclosure, Collapse, Button, Text, useColorModeValue, IconButton, Icon} from "@chakra-ui/react";
 import { useState, useRef} from "react";
-import {motion} from "framer-motion";
 import EntriesContainer from "./EntriesContainer";
 import axios from "axios";
+import { MdImage } from "react-icons/md"
 import { AddIcon } from "@chakra-ui/icons";
 
 function PostEntry({showAll}){
@@ -164,9 +164,8 @@ function PostEntry({showAll}){
                                         justifyContent="center"
                                         p={2}
                                     >
-                                    <AddIcon
-                                        bg="none"
-                                        size="sm"
+                                    <Icon
+                                        as={MdImage}
                                         color={useColorModeValue("blackAlpha.500", "whiteAlpha.300")}
                                     />
                                     </Box>
@@ -193,8 +192,8 @@ function PostEntry({showAll}){
                                     variant={useColorModeValue("solid", "outline")}
                                     borderColor="green.200"
                                     color={useColorModeValue(null, "green.200")}
-                                    bg={useColorModeValue("orange.200")}
-                                    _hover={useColorModeValue({bg: "orange.300"})}
+                                    bg={useColorModeValue("gray.200")}
+                                    _hover={useColorModeValue({bg: "gray.300"})}
                                 >
                                     <Text fontWeight="400">Done</Text>
                                 </Button>

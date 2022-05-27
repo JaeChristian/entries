@@ -1,5 +1,5 @@
 import {Popover, PopoverTrigger, PopoverContent, PopoverBody, IconButton, Icon, Box, useColorModeValue} from "@chakra-ui/react"
-import { MdColorLens, MdCircle } from "react-icons/md"
+import { MdColorLens } from "react-icons/md"
 import axios from "axios";
 
 function Color({bg, color, entryId,  updateEntries}) {
