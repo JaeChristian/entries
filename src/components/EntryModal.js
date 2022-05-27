@@ -36,6 +36,7 @@ function EntryModal({bg, categoryName, dateToString, entry, isOpen, onClose, upd
         setTitle(entry.title);
         setBody(entry.body);
         setTitleTextHeight("40px");
+        setBodyTextHeight("0px");
     }, [isOpen, entry.title, entry.body]);
 
     // useCallback used to get the entry body node's scroll height and set it to the modal height

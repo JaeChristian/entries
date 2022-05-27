@@ -9,15 +9,15 @@ function Entry({entry, updateEntries, categories, updateCategories}){
     // Colors
     const gray = useColorModeValue("#EAEAEA", "#1e1e1e");
     const red = useColorModeValue("red.300", "red.700");
-    const orange = useColorModeValue("rgb(252,186,6)", "yellow.700");
-    const yellow = useColorModeValue("yellow.300", "yellow.600");
+    const orange = useColorModeValue("orange.300", "orange.600");
+    const yellow = useColorModeValue("rgb(252,186,6)", "yellow.600");
     const teal = useColorModeValue("teal.200", "teal.600");
     const green = useColorModeValue("green.200", "green.600");
     const blue = useColorModeValue("blue.100", "blue.700");
     const cyan = useColorModeValue("cyan.100", "cyan.800");
     const purple = useColorModeValue("purple.200", "purple.800");
     const pink = useColorModeValue("pink.200", "pink.900");
-    const brown = useColorModeValue("rgb(230,201,168)", "rgb(68,47,26)");
+    const brown = useColorModeValue("rgb(230,201,168)", "rgb(76,57,50)");
 
     const {colorMode, toggleColorMode} = useColorMode();
 
