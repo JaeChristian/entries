@@ -170,7 +170,7 @@ function EntryModal({bg, categoryName, dateToString, entry, isOpen, onClose, upd
                             onChange={(e) => handleBodyChange(e)}
                             h={BodyTextHeight}
                             p={0}
-                            overflowX="hidden"
+                            overflow="hidden"
                             placeholder="Entry"
                             ref={entryBodyTextarea}
                         />
