@@ -1,8 +1,7 @@
 import {Box, Icon, Link} from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
-import {StarIcon, ChevronRightIcon, EditIcon} from "@chakra-ui/icons";
+import {StarIcon, ChevronRightIcon} from "@chakra-ui/icons";
 import { useEffect, useState } from "react";
-import {MdEdit} from "react-icons/md"
 import axios from "axios";
 import CategoryEditModal from "./CategoryEditModal";
 
@@ -44,7 +43,7 @@ function CategoryPanel() {
                     );
                 })
             }
-            <CategoryEditModal categories={categories}/>
+            <CategoryEditModal fetchCategories={fetchCategories} categories={categories}/>
         </>
     );
 }
