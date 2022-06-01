@@ -4,6 +4,7 @@ import EntriesContainer from "./EntriesContainer";
 import axios from "axios";
 import { MdImage } from "react-icons/md"
 import { AddIcon } from "@chakra-ui/icons";
+import { useParams } from "react-router-dom";
 
 function PostEntry({showAll}){
     const entriesApi = axios.create({
@@ -23,6 +24,8 @@ function PostEntry({showAll}){
     const [previewSource, setPreviewSource] = useState();
     const [entryChange, setEntryChange] = useState(0);
     const {isOpen, onOpen, onClose} = useDisclosure();
+
+    const {categoryId} = useParams();
 
     // Collapses the post component.
     function handleFocus(e) {
@@ -87,6 +90,7 @@ function PostEntry({showAll}){
         setEntryTitle("");
         setEntryBody("");
         setBodyTextHeight("40px");
+        setTitleTextHeight("40px");
         setPreviewSource(null);
     }
 
@@ -97,7 +101,9 @@ function PostEntry({showAll}){
             title: entryTitle,
             body: entryBody
         }
-        
+        if(showAll === false) {
+            newEntry.categoryId = categoryId;
+        }
         // If selectedFile is not null then upload the image
         if(selectedFile){
             newEntry.image = previewSource;

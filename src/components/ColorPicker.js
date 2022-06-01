@@ -55,7 +55,7 @@ function ColorPicker({entry, updateEntries}) {
                     bg="none" 
                     borderRadius="xl" 
                     size="sm"
-                    color={useColorModeValue("blackAlpha.500", "whiteAlpha.300")}
+                    color={useColorModeValue("blackAlpha.500", "whiteAlpha.500")}
                     _hover={{backgroundColor: useColorModeValue("blackAlpha.100", "whiteAlpha.100")}}
                     _focus={{}}
                 />

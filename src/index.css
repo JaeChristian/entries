@@ -17,3 +17,7 @@ textarea::-webkit-scrollbar{
 input#upload {
     display:none;
  }
+
+ #categoryForm {
+     width: 100%;
+ }

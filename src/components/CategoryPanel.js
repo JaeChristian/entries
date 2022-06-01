@@ -1,8 +1,10 @@
-import {Box, Link} from "@chakra-ui/react";
+import {Box, Icon, Link} from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
-import {StarIcon, ChevronRightIcon} from "@chakra-ui/icons";
+import {StarIcon, ChevronRightIcon, EditIcon} from "@chakra-ui/icons";
 import { useEffect, useState } from "react";
+import {MdEdit} from "react-icons/md"
 import axios from "axios";
+import CategoryEditModal from "./CategoryEditModal";
 
 function CategoryPanel() {
     const highlightedColor = "rgba(255,255,255,0.08)"
@@ -27,7 +29,7 @@ function CategoryPanel() {
     }
 
     useEffect(()=>{
-      fetchCategories();  
+      fetchCategories();
     }, []);
 
     return(
@@ -42,6 +44,7 @@ function CategoryPanel() {
                     );
                 })
             }
+            <CategoryEditModal categories={categories}/>
         </>
     );
 }

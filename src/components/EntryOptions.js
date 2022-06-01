@@ -11,13 +11,13 @@ function EntryOptions({isOpen, deletePost, entry, categories, updateEntries, upd
                 bg="none" 
                 borderRadius="xl" 
                 size="sm"
-                color={useColorModeValue("blackAlpha.500", "whiteAlpha.300")}
+                color={useColorModeValue("blackAlpha.500", "whiteAlpha.500")}
                 _hover={{backgroundColor: useColorModeValue("blackAlpha.100", "whiteAlpha.100")}}
                 _focus={{}}
                 onClick={() => deletePost()}
             />
-            <CategoryMenu entry={entry} categories={categories} updateEntries={updateEntries} updateCategories={updateCategories}/>
             <ColorPicker entry={entry} updateEntries={updateEntries}/>
+            <CategoryMenu entry={entry} categories={categories} updateEntries={updateEntries} updateCategories={updateCategories}/>
         </Fade>
     );
 }
