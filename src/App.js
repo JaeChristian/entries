@@ -5,7 +5,7 @@ import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import PostEntry
  from './components/PostEntry';
 /**
@@ -13,14 +13,20 @@ import PostEntry
  *  - Add category functionality
  */
 function App() {
+  const [categoryUpdater, setCategoryUpdater] = useState(0);
+
+  function updateCategories() {
+    setCategoryUpdater(categoryUpdater + 1);
+  }
+
   return (
     <ChakraProvider theme={theme}>
         <Router>
           <Routes>
             <Route exact path="/" element={<Login/>}/>
-            <Route path="/home/" element={<Home/>}>
-              <Route path=":categoryId" element={<PostEntry showAll={false}/>}/>
-              <Route path="all" element={<PostEntry showAll={true}/>}/>
+            <Route path="/home/" element={<Home updateCategories={updateCategories}/>}>
+              <Route path=":categoryId" element={<PostEntry showAll={false} categoryUpdater={categoryUpdater}/>}/>
+              <Route path="all" element={<PostEntry showAll={true} categoryUpdater={categoryUpdater}/>}/>
             </Route>
             <Route exact path="/login" element={<Login/>}/>
             <Route exact path="/profile/:userId" element={<Profile/>}/>

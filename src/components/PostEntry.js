@@ -1,12 +1,12 @@
 import { Box, Textarea, useDisclosure, Collapse, Button, Text, useColorModeValue, IconButton, Icon} from "@chakra-ui/react";
-import { useState, useRef} from "react";
+import { useState, useRef, useEffect} from "react";
 import EntriesContainer from "./EntriesContainer";
 import axios from "axios";
 import { MdImage } from "react-icons/md"
 import { AddIcon } from "@chakra-ui/icons";
 import { useParams } from "react-router-dom";
 
-function PostEntry({showAll}){
+function PostEntry({showAll, categoryUpdater}){
     const entriesApi = axios.create({
         headers: {
             Authorization: `bearer ${localStorage.getItem("token")}`,
@@ -120,6 +120,11 @@ function PostEntry({showAll}){
         console.log(newEntry, "new post");
     }
 
+    useEffect(()=>{
+        updateEntries();
+        console.log("updating categories after delete");
+    },[categoryUpdater])
+
     return (
         <>
             <Box w="100%" onFocus={onOpen} border="1px solid" borderColor={useColorModeValue("blackAlpha.300", "rgba(255,255,255,0.3)")} borderRadius="0.4rem" onMouseOver={(e) => handleFocus(e)}>
@@ -208,7 +213,7 @@ function PostEntry({showAll}){
                     </Collapse>
                 </form>
             </Box>
-            <EntriesContainer entryChange={entryChange} updateEntries={updateEntries} showAll={showAll}/>
+            <EntriesContainer entryChange={entryChange} updateEntries={updateEntries} showAll={showAll} categoryUpdater={categoryUpdater}/>
         </>
     );
 }

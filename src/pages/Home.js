@@ -3,7 +3,7 @@ import { Navigate, Outlet } from "react-router-dom";
 import CategoryPanel from "../components/CategoryPanel";
 import {Box} from "@chakra-ui/react"
 
-function Home() {
+function Home({updateCategories}) {
 
    // Checks if JWT token exists, if not then redirect to login.
     if(localStorage.getItem("token") === null) {
@@ -14,7 +14,7 @@ function Home() {
     return(
         <>
             <Box ml={4} w="300px" position="fixed" left="0" display={{base: "none", xl: "flex"}} flexDir="column" gap={2}>
-                <CategoryPanel/>
+                <CategoryPanel updateCategories={updateCategories}/>
             </Box>
             <ContentLayout showNav={true}>
                 <Outlet/>

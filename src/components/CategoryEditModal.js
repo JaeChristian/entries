@@ -4,7 +4,7 @@ import {HamburgerIcon, DeleteIcon} from "@chakra-ui/icons"
 import {useState} from "react"
 import axios from "axios";
 
-function Category({category}) {
+function Category({category, fetchCategories, updateCategories}) {
     const {
         isOpen: isOpenFade,
         onOpen: onOpenFade,
@@ -12,6 +12,24 @@ function Category({category}) {
     } = useDisclosure();
 
     const hover = useColorModeValue("#edf2f6", "#282828")
+
+    // Endpoint for categories
+    const categoriesAPI = axios.create({
+        headers: {
+            Authorization: `bearer ${localStorage.getItem("token")}`,
+        },
+        baseURL: "/categories"
+    });
+
+    function deleteCategory(e) {
+        categoriesAPI.delete("/" + category._id).then((res)=>{
+            updateCategories();
+            fetchCategories();
+            console.log(res.data);
+        }).catch((err)=>{
+            console.error(err)
+        });
+    }
 
     return(
         <Box 
@@ -37,13 +55,14 @@ function Category({category}) {
                         borderRadius="xl" 
                         size="sm"
                         color={useColorModeValue("blackAlpha.500", "whiteAlpha.500")}
+                        onClick={(e)=>deleteCategory(e)}
                     />
                 </Fade>
         </Box>
     );
 }
 
-function CategoryEditModal({categories, fetchCategories}) {
+function CategoryEditModal({categories, fetchCategories, updateCategories}) {
     const [categoryName, setCategoryName] = useState("");
     const {isOpen, onOpen, onClose} = useDisclosure();
     const bg = useColorModeValue("white", "#1a1a1a");
@@ -66,6 +85,7 @@ function CategoryEditModal({categories, fetchCategories}) {
         categoriesAPI.post("/", newCategory).then((res)=> {
             fetchCategories();
             setCategoryName("");
+            console.log(res.data);
         }).catch((err)=>{
             console.error(err);
         });
@@ -99,7 +119,7 @@ function CategoryEditModal({categories, fetchCategories}) {
                         </Box>
                         {categories.map((category)=>{
                             return(
-                                <Category category={category}/>
+                                <Category category={category} fetchCategories={fetchCategories} updateCategories={updateCategories}/>
                             );
                         })}
                     </Flex>

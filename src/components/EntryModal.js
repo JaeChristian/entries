@@ -174,7 +174,8 @@ function EntryModal({bg, categoryName, dateToString, entry, isOpen, onClose, upd
                             placeholder="Entry"
                             ref={entryBodyTextarea}
                         />
-                        <DisplayCategory categoryName={categoryName} mr={0}/>
+                        { categoryName && <DisplayCategory categoryName={categoryName} mr={0}/>}
+                        
                         <Box 
                             display="flex" 
                             justifyContent="space-between" 

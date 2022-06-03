@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import CategoryEditModal from "./CategoryEditModal";
 
-function CategoryPanel() {
+function CategoryPanel({updateCategories}) {
     const highlightedColor = "rgba(255,255,255,0.08)"
     const [categories, setCategories] = useState([]);
     // Decrypted JWT token
@@ -43,7 +43,7 @@ function CategoryPanel() {
                     );
                 })
             }
-            <CategoryEditModal fetchCategories={fetchCategories} categories={categories}/>
+            <CategoryEditModal fetchCategories={fetchCategories} categories={categories} updateCategories={updateCategories}/>
         </>
     );
 }
