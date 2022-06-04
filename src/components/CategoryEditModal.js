@@ -1,6 +1,6 @@
 import {Box, Flex, Icon, Link, Modal, ModalContent, ModalOverlay, useDisclosure, useColorModeValue, Text, Input, Fade, IconButton} from "@chakra-ui/react"
 import {MdEdit} from "react-icons/md"
-import {HamburgerIcon, DeleteIcon} from "@chakra-ui/icons"
+import {HamburgerIcon, DeleteIcon, CheckIcon} from "@chakra-ui/icons"
 import {useState} from "react"
 import axios from "axios";
 
@@ -12,6 +12,10 @@ function Category({category, fetchCategories, updateCategories}) {
     } = useDisclosure();
 
     const hover = useColorModeValue("#edf2f6", "#282828")
+    const iconColor = useColorModeValue("blackAlpha.500", "whiteAlpha.500");
+    const [isEdit, setIsEdit] = useState(false);
+    const [editedCat, setEditedCat] = useState("");
+    const [isOnDelete, setIsOnDelete] = useState(false);
 
     // Endpoint for categories
     const categoriesAPI = axios.create({
@@ -20,6 +24,18 @@ function Category({category, fetchCategories, updateCategories}) {
         },
         baseURL: "/categories"
     });
+
+    function handleEditChange(e) {
+        setEditedCat(e.target.value);
+    }
+
+    function onEdit(){
+        if(isOnDelete) {
+            return console.log("bomboclat");
+        }
+        setIsEdit(true);
+        setEditedCat(category.name);
+    }
 
     function deleteCategory(e) {
         categoriesAPI.delete("/" + category._id).then((res)=>{
@@ -31,34 +47,92 @@ function Category({category, fetchCategories, updateCategories}) {
         });
     }
 
+    function editCategory(e) {
+        e.preventDefault();
+        const newCategory = {
+            name: editedCat
+        }
+
+        categoriesAPI.patch("/" + category._id, newCategory).then((res)=>{
+            updateCategories();
+            fetchCategories();
+            setIsEdit(false);
+            console.log(res.data);
+        }).catch((err)=>{
+            setIsEdit(false);
+            setEditedCat(category.name);
+            console.error(err)
+        });
+    }
+
     return(
-        <Box 
-            p={2}
-            _hover={{background: hover, cursor: "pointer"}}
-            onMouseEnter={onOpenFade}
-            onMouseLeave={onCloseFade}
-            display="flex"
-            alignItems="center"
-            justifyContent="space-between"
-            gap={2}
-        >
-            <Flex
+        <form id="categoryForm" onSubmit={(e)=>editCategory(e)}>
+            <Box 
+                p={2}
+                _hover={{background: hover, cursor: "pointer"}}
+                onMouseEnter={onOpenFade}
+                onMouseLeave={onCloseFade}
+                onClick={()=>onEdit()}
+                display="flex"
                 alignItems="center"
+                justifyContent="space-between"
                 gap={2}
             >
-                <HamburgerIcon/> <Text fontSize="sm">{category.name}</Text>
-            </Flex>
+                <Flex
+                    alignItems="center"
+                    gap={2}
+                >
+                    <HamburgerIcon/> 
+                    {
+                        !isEdit ? 
+                            <>
+                                <Text fontSize="sm">{category.name}</Text>
+                            </> : 
+                            <>
+                                <Input 
+                                    type="text" 
+                                    value={editedCat}
+                                    placeholder="Edit label name"
+                                    fontSize="sm"
+                                    variant="flushed"
+                                    _focus={{}}
+                                    defaultValue={editedCat}
+                                    onChange={(e)=>handleEditChange(e)}
+                                    min={3}
+                                />
+                            </>
+                    }
+                    
+                </Flex>
                 <Fade in={isOpenFade}>
-                    <IconButton
-                        icon={<DeleteIcon/>}
-                        bg="none"
-                        borderRadius="xl" 
-                        size="sm"
-                        color={useColorModeValue("blackAlpha.500", "whiteAlpha.500")}
-                        onClick={(e)=>deleteCategory(e)}
-                    />
+                    <Flex>
+                        { isEdit &&
+                            <IconButton
+                                icon={<CheckIcon/>}
+                                bg="none"
+                                borderRadius="xl" 
+                                size="sm"
+                                color={iconColor}
+                                _focus={{}}
+                                onClick={(e)=>editCategory(e)}
+                            /> 
+                        }
+                        
+                        <IconButton
+                            icon={<DeleteIcon/>}
+                            bg="none"
+                            borderRadius="xl" 
+                            size="sm"
+                            color={iconColor}
+                            onClick={(e)=>deleteCategory(e)}
+                            _focus={{}}
+                            onMouseEnter={()=>setIsOnDelete(true)}
+                            onMouseLeave={()=>setIsOnDelete(false)}
+                        />
+                    </Flex>
                 </Fade>
-        </Box>
+            </Box>
+        </form>
     );
 }
 
@@ -114,6 +188,7 @@ function CategoryEditModal({categories, fetchCategories, updateCategories}) {
                                     fontSize="sm"
                                     variant="flushed"
                                     _focus={{}}
+                                    required
                                 />
                             </form>
                         </Box>
