@@ -148,7 +148,7 @@ function Entry({entry, updateEntries, categories, updateCategories}){
                 flexDir="column"
                 gap={2}
             >
-                {entry.imageURL && (<Image src={entry.imageURL} maxH="500px" w="100%" objectFit="cover"/>)}
+                {entry.imageURL && (<Image src={entry.imageURL} borderTopRadius="0.4rem" maxH="500px" w="100%" objectFit="cover"/>)}
                 
                 <Heading 
                     fontSize="lg" 

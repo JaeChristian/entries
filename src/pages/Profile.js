@@ -4,6 +4,7 @@ import { Navigate } from "react-router-dom";
 import {useParams} from "react-router-dom";
 import ProfileHeader from "../components/ProfileHeader";
 import { Box, useColorModeValue } from "@chakra-ui/react";
+import ProfileEntries from "../components/ProfileEntries";
 
 function Profile() {
     const thisUser = JSON.parse(atob(localStorage.getItem("token")?.split(".")[1]));
@@ -15,10 +16,10 @@ function Profile() {
     }
     console.log(localStorage.getItem("token"));
     return(
-        <ContentLayout showNav={true}>
+        <ContentLayout showNav={true} containerSize="container.lg">
             <ProfileHeader userId={userId}/>
             <Box mt={4} mb={4} minH="1px" w="100%" bg={dividerColor}/>
-            <PostEntry showAll={true}/>
+            <ProfileEntries/>
         </ContentLayout>
     );
 }

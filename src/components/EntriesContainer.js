@@ -59,7 +59,7 @@ function EntriesContainer({entryChange, updateEntries, categories, updateCategor
 
     return(
         <Flex mt={4} width="100%" flexDir="column" gap={4}>
-            {entries.slice(0).reverse().map((entry) => {
+            {entries.map((entry) => {
                 return (
                     <div key={entry._id}>
                         <Entry entry={entry} updateEntries={updateEntries} categories={categories} updateCategories={updateCategories}/>

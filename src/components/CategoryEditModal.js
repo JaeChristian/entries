@@ -194,7 +194,9 @@ function CategoryEditModal({categories, fetchCategories, updateCategories}) {
                         </Box>
                         {categories.map((category)=>{
                             return(
-                                <Category category={category} fetchCategories={fetchCategories} updateCategories={updateCategories}/>
+                                <div key={category._id}>
+                                    <Category category={category} fetchCategories={fetchCategories} updateCategories={updateCategories}/>
+                                </div>
                             );
                         })}
                     </Flex>

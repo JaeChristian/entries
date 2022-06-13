@@ -166,7 +166,7 @@ function PostEntry({showAll, categoryUpdater}){
                             p={2}   
                         >
                             <Box>
-                                <label for="upload">
+                                <label htmlFor="upload">
                                     <Box 
                                         borderRadius="xl"
                                         _hover={{backgroundColor: useColorModeValue("blackAlpha.100", "whiteAlpha.100"), cursor: "pointer"}}
