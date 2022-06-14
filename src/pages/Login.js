@@ -2,6 +2,7 @@ import {Box, Flex, Link, Heading, Input, Container, Button, useColorModeValue} f
 import axios from "axios";
 import { useEffect, useState } from "react";
 import {Navigate} from "react-router-dom"
+import {API_URL} from "../libs/URLhandler"
 
 function Login() {
     //#FFC700 nice orange
@@ -15,13 +16,13 @@ function Login() {
             email: email,
             password: password
         }
-        axios.post("/login", user).then((res) => {
+        axios.post(`${API_URL}/login`, user).then((res) => {
             console.log("success");
             setSuccess(true);
             localStorage.setItem("token", res.data.token);
             
         }).catch((err) => {
-            console.error(err.response.data.message);
+            console.error(err);
         });
     }
 

@@ -4,13 +4,14 @@ import axios from "axios";
 import EntryOptions from "./EntryOptions";
 import DisplayCategory from "./DisplayCategory";
 import {DeleteIcon} from "@chakra-ui/icons"
+import { API_URL } from "../libs/URLhandler";
 
 function EntryModal({bg, categoryName, dateToString, entry, isOpen, onClose, updateEntries, deletePost, categories, updateCategories}) {
     const entriesApi = axios.create({
         headers: {
             Authorization: `bearer ${localStorage.getItem("token")}`,
         },
-        baseURL: "/entries"
+        baseURL: `${API_URL}/entries`
     });
 
     const [TitleTextHeight, setTitleTextHeight] = useState("40px");

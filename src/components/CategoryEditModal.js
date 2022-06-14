@@ -3,6 +3,7 @@ import {MdEdit} from "react-icons/md"
 import {HamburgerIcon, DeleteIcon, CheckIcon} from "@chakra-ui/icons"
 import {useState} from "react"
 import axios from "axios";
+import { API_URL } from "../libs/URLhandler";
 
 function Category({category, fetchCategories, updateCategories}) {
     const {
@@ -22,7 +23,7 @@ function Category({category, fetchCategories, updateCategories}) {
         headers: {
             Authorization: `bearer ${localStorage.getItem("token")}`,
         },
-        baseURL: "/categories"
+        baseURL: `${API_URL}/categories`
     });
 
     function handleEditChange(e) {
@@ -146,7 +147,7 @@ function CategoryEditModal({categories, fetchCategories, updateCategories}) {
         headers: {
             Authorization: `bearer ${localStorage.getItem("token")}`,
         },
-        baseURL: "/categories"
+        baseURL: `${API_URL}/categories`
     });
 
     // Sends new category information to endpoint

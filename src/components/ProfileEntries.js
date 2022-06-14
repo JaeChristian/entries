@@ -2,6 +2,7 @@ import {Box, Grid, Text, Heading, GridItem} from "@chakra-ui/react"
 import { useEffect, useState } from "react";
 import axios from "axios";
 import ProfileEntry from "./ProfileEntry";
+import { API_URL } from "../libs/URLhandler";
 
 function ProfileEntries() {
     const [entries, setEntries] = useState([]);
@@ -14,7 +15,7 @@ function ProfileEntries() {
          headers: {
              Authorization: `bearer ${localStorage.getItem("token")}`,
          },
-         baseURL: "/entries"
+         baseURL: `${API_URL}/entries`
      });
 
      useEffect(()=>{

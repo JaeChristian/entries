@@ -1,13 +1,14 @@
 import {Popover, PopoverTrigger, PopoverContent, PopoverBody, IconButton, Icon, Box, useColorModeValue} from "@chakra-ui/react"
 import { MdColorLens } from "react-icons/md"
 import axios from "axios";
+import { API_URL } from "../libs/URLhandler";
 
 function Color({bg, color, entryId,  updateEntries}) {
     const entriesApi = axios.create({
         headers: {
             Authorization: `bearer ${localStorage.getItem("token")}`,
         },
-        baseURL: "/entries"
+        baseURL: `${API_URL}/entries`
     });
 
     function changeColor(newColor) {

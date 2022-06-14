@@ -2,6 +2,7 @@ import {Flex} from "@chakra-ui/react"
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { API_URL } from "../libs/URLhandler";
 import Entry from "./Entry";
 
 function EntriesContainer({entryChange, updateEntries, categories, updateCategories, showAll}) {
@@ -15,7 +16,7 @@ function EntriesContainer({entryChange, updateEntries, categories, updateCategor
         headers: {
             Authorization: `bearer ${localStorage.getItem("token")}`,
         },
-        baseURL: "/entries"
+        baseURL: `${API_URL}/entries`
     });
 
     // Endpoint for categories
@@ -23,7 +24,7 @@ function EntriesContainer({entryChange, updateEntries, categories, updateCategor
         headers: {
             Authorization: `bearer ${localStorage.getItem("token")}`,
         },
-        baseURL: "/categories"
+        baseURL: `${API_URL}/categories`
     });
 
     const {categoryId} = useParams();

@@ -2,6 +2,7 @@ import {Box, Heading, Flex, Image, Text, Link, useColorModeValue} from "@chakra-
 import axios from "axios";
 import { useEffect, useState } from "react";
 import {NavLink} from "react-router-dom"
+import { API_URL } from "../libs/URLhandler";
 
 function ProfileHeader({userId}) {
     const [user, setUser] = useState({});
@@ -13,7 +14,7 @@ function ProfileHeader({userId}) {
         headers: {
             Authorization: `bearer ${localStorage.getItem("token")}`,
         },
-        baseURL: "/users"
+        baseURL: `${API_URL}/users`
     });
 
     useEffect(()=>{

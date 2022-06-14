@@ -4,6 +4,7 @@ import {StarIcon, ChevronRightIcon} from "@chakra-ui/icons";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import CategoryEditModal from "./CategoryEditModal";
+import { API_URL } from "../libs/URLhandler";
 
 function CategoryPanel({updateCategories}) {
     const highlightedColor = "rgba(255,255,255,0.08)"
@@ -16,7 +17,7 @@ function CategoryPanel({updateCategories}) {
         headers: {
             Authorization: `bearer ${localStorage.getItem("token")}`,
         },
-        baseURL: "/categories"
+        baseURL: `${API_URL}/categories`
     });
 
     function fetchCategories() {

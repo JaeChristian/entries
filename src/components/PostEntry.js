@@ -5,13 +5,14 @@ import axios from "axios";
 import { MdImage } from "react-icons/md"
 import { AddIcon } from "@chakra-ui/icons";
 import { useParams } from "react-router-dom";
+import { API_URL } from "../libs/URLhandler";
 
 function PostEntry({showAll, categoryUpdater}){
     const entriesApi = axios.create({
         headers: {
             Authorization: `bearer ${localStorage.getItem("token")}`,
         },
-        baseURL: "/entries"
+        baseURL: `${API_URL}/entries`
     });
 
     const [bodyTextHeight, setBodyTextHeight] = useState("40px");

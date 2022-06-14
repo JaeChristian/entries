@@ -3,6 +3,7 @@ import {HamburgerIcon, PlusSquareIcon} from "@chakra-ui/icons";
 import axios from "axios";
 import CategorySelection from "./CategorySelection";
 import { useCallback, useEffect, useState } from "react";
+import { API_URL } from "../libs/URLhandler";
 
 function CategoryMenu ({entry, updateEntries}) {
     // Background color for category menu
@@ -18,7 +19,7 @@ function CategoryMenu ({entry, updateEntries}) {
         headers: {
             Authorization: `bearer ${localStorage.getItem("token")}`,
         },
-        baseURL: "/entries"
+        baseURL: `${API_URL}/entries`
     });
 
     // Endpoint for categories
@@ -26,7 +27,7 @@ function CategoryMenu ({entry, updateEntries}) {
         headers: {
             Authorization: `bearer ${localStorage.getItem("token")}`,
         },
-        baseURL: "/categories"
+        baseURL: `${API_URL}/categories`
     });
 
     function fetchCategories() {

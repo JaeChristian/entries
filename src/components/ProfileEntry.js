@@ -2,6 +2,7 @@ import { GridItem, Box, Text, useColorModeValue, Image, useColorMode, Heading } 
 import { useState, useEffect } from "react";
 import DisplayCategory from "./DisplayCategory";
 import axios from "axios"
+import { API_URL } from "../libs/URLhandler";
 
 function ProfileEntry({entry}) {
     // Colors
@@ -26,7 +27,7 @@ function ProfileEntry({entry}) {
         headers: {
             Authorization: `bearer ${localStorage.getItem("token")}`,
         },
-        baseURL: "/categories"
+        baseURL: `${API_URL}/categories`
     });
 
     useEffect(()=>{

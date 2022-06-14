@@ -4,6 +4,7 @@ import EntryModal from "./EntryModal";
 import { useEffect, useState, useRef} from "react";
 import EntryOptions from "./EntryOptions";
 import DisplayCategory from "./DisplayCategory";
+import { API_URL } from "../libs/URLhandler";
 
 function Entry({entry, updateEntries, categories, updateCategories}){
     // Colors
@@ -25,14 +26,14 @@ function Entry({entry, updateEntries, categories, updateCategories}){
         headers: {
             Authorization: `bearer ${localStorage.getItem("token")}`,
         },
-        baseURL: "/entries"
+        baseURL: `${API_URL}/entries`
     });
 
     const categoriesAPI = axios.create({
         headers: {
             Authorization: `bearer ${localStorage.getItem("token")}`,
         },
-        baseURL: "/categories"
+        baseURL: `${API_URL}/categories`
     });
 
     // Needed to turn date to string
