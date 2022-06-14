@@ -18,7 +18,7 @@ function Profile() {
     return(
         <ContentLayout showNav={true} containerSize="container.lg">
             <ProfileHeader userId={userId}/>
-            <Box mt={4} mb={4} minH="1px" w="100%" bg={dividerColor}/>
+            <Box mt={6} mb={6} minH="1px" w="100%" bg={dividerColor}/>
             <ProfileEntries/>
         </ContentLayout>
     );
