@@ -84,12 +84,12 @@ function ProfileEntry({entry}) {
             key={entry._id} 
             w="100%" 
             bg={bg}
-            borderRadius="0.2rem"
+            borderRadius="0.4rem"
             display="flex"
             flexDirection="column"
             maxH={400}
         >
-            {entry.imageURL && (<Image borderTopRadius="0.2rem" src={entry.imageURL} maxH="500px" w="100%" objectFit="cover"/>)}
+            {entry.imageURL && (<Image borderTopRadius="0.4rem" src={entry.imageURL} maxH="500px" w="100%" objectFit="cover"/>)}
             <Heading
                     fontSize="md" 
                     fontWeight="500"
@@ -103,6 +103,7 @@ function ProfileEntry({entry}) {
                     p={4}
                     pt={0} 
                     overflowY="auto" 
+                    className="entry"
                 >
                     <Box fontSize="16px" whiteSpace="pre-wrap">{entry.body}</Box>
                 </Box>
