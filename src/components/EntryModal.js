@@ -189,7 +189,7 @@ function EntryModal({bg, categoryName, dateToString, entry, isOpen, onClose, upd
                             <Button 
                                 type="submit"
                                 height="30px" 
-                                bg={useColorModeValue('blackAlpha.200', '#1a1a1a')}
+                                bg={useColorModeValue('blackAlpha.200', 'rgba(0,0,0,0.1)')}
                                 _hover={{backgroundColor: useColorModeValue('blackAlpha.300', 'whiteAlpha.100')}}
                                 borderRadius="0.4rem"
                                 onClick={() =>{
