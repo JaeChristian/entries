@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import {useEffect, useState} from "react";
+import Register from "./pages/Register"
 import PostEntry
  from './components/PostEntry';
 /**
@@ -30,6 +31,7 @@ function App() {
             </Route>
             <Route exact path="/login" element={<Login/>}/>
             <Route exact path="/profile/:userId" element={<Profile/>}/>
+            <Route exact path="/register" element={<Register/>}/>
           </Routes>
         </Router>
     </ChakraProvider>

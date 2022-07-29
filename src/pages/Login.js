@@ -1,7 +1,7 @@
 import {Box, Flex, Link, Heading, Input, Container, Button, useColorModeValue} from "@chakra-ui/react";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import {Navigate} from "react-router-dom"
+import {Navigate, NavLink} from "react-router-dom"
 import {API_URL} from "../libs/URLhandler"
 
 function Login() {
@@ -76,7 +76,7 @@ function Login() {
                             />
                         </Flex>
                         <Flex mt={10} alignContent="center" justifyContent="space-between">
-                            <Link>Sign up</Link>
+                            <Link as={NavLink} to="/register">Sign up</Link>
                             <Button 
                                 type="submit"
                                 bg="orange.200" 
