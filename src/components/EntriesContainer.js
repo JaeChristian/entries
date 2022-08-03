@@ -31,7 +31,7 @@ function EntriesContainer({entryChange, updateEntries, categories, updateCategor
 
     function getEntries() {
         if(showAll){
-            console.log("Getting all posts");
+            //console.log("Getting all posts");
             entriesApi.get("/user/" + authUser.id).then((res)=>{
                 let newEntries = res.data;
                 newEntries = newEntries.slice()
@@ -40,7 +40,7 @@ function EntriesContainer({entryChange, updateEntries, categories, updateCategor
                 console.log(err.response.data.message);
             });
         } else {
-            console.log("Getting filtered posts");
+            //console.log("Getting filtered posts");
             categoriesApi.get("/category/" + categoryId).then((res)=>{
                 let newEntries = res.data;
                 newEntries = newEntries.slice()

@@ -9,7 +9,7 @@ function ProfileHeader({userId}) {
     const subOptions = useColorModeValue("blackAlpha.500", "whiteAlpha.400");
     // Decrypted JWT token
     const authUser = JSON.parse(atob(localStorage.getItem("token")?.split(".")[1]));
-    console.log(authUser); 
+    //console.log(authUser); 
     const usersAPI = axios.create({
         headers: {
             Authorization: `bearer ${localStorage.getItem("token")}`,

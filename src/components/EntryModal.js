@@ -74,7 +74,7 @@ function EntryModal({bg, categoryName, dateToString, entry, isOpen, onClose, upd
         }
 
         entriesApi.patch("/" + entry._id, newEntry).then((res) => {
-            console.log(res.data);
+            //console.log(res.data);
             updateEntries();
         }).catch((err) => {
             console.error(err);
@@ -90,7 +90,7 @@ function EntryModal({bg, categoryName, dateToString, entry, isOpen, onClose, upd
         }
 
         entriesApi.patch("/" + entry._id, newEntry).then((res) => {
-            console.log(res.data);
+            //console.log(res.data);
             updateEntries();
         }).catch((err) => {
             console.error(err);

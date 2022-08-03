@@ -123,7 +123,7 @@ function Entry({entry, updateEntries, categories, updateCategories}){
 
     function deletePost() {
         entriesApi.delete("/" + entry._id).then((res)=>{
-            console.log(res.data);
+            //(res.data);
             updateEntries();
         }).catch((err)=>{
             console.error(err.response.data.message);

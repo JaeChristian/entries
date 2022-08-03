@@ -42,7 +42,7 @@ function Category({category, fetchCategories, updateCategories}) {
         categoriesAPI.delete("/" + category._id).then((res)=>{
             updateCategories();
             fetchCategories();
-            console.log(res.data);
+            //console.log(res.data);
         }).catch((err)=>{
             console.error(err)
         });
@@ -58,7 +58,7 @@ function Category({category, fetchCategories, updateCategories}) {
             updateCategories();
             fetchCategories();
             setIsEdit(false);
-            console.log(res.data);
+            //console.log(res.data);
         }).catch((err)=>{
             setIsEdit(false);
             setEditedCat(category.name);
@@ -160,7 +160,7 @@ function CategoryEditModal({categories, fetchCategories, updateCategories}) {
         categoriesAPI.post("/", newCategory).then((res)=> {
             fetchCategories();
             setCategoryName("");
-            console.log(res.data);
+            //console.log(res.data);
         }).catch((err)=>{
             console.error(err);
         });

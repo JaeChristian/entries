@@ -19,7 +19,7 @@ function Home({updateCategories}) {
     } else {
         // Posts to jwtAuth endpoint to check if the existing token is valid
         jwtApi.post("/").then((res) => {
-            console.log(res.data);
+            //console.log(res.data);
         }).catch((err) => {
             // Executes if an error is caught (invalid or expired token)
             console.log(err.response.data.message);
@@ -27,7 +27,7 @@ function Home({updateCategories}) {
             return <Navigate to="/login"/>
         })
     }
-    console.log(localStorage.getItem("token"));
+    //console.log(localStorage.getItem("token"));
 
     return(
         <>

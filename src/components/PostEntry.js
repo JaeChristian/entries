@@ -113,17 +113,17 @@ function PostEntry({showAll, categoryUpdater}){
         // Sends post request to the API with newEntry data
         entriesApi.post("/", newEntry).then((res) => 
             {
-                console.log(res.data);
+                //console.log(res.data);
                 clearText();
                 updateEntries();
             }
         );
-        console.log(newEntry, "new post");
+        //console.log(newEntry, "new post");
     }
 
     useEffect(()=>{
         updateEntries();
-        console.log("updating categories after delete");
+        //console.log("updating categories after delete");
     },[categoryUpdater])
 
     return (

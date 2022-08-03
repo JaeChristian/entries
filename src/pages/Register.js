@@ -67,7 +67,7 @@ function Register() {
         }
 
         usersAPI.post("/", newUser).then((res) => {
-            console.log(res.data);
+            //console.log(res.data);
             setIsRegistered(true);
         }).catch((err) => {
             setIsError(true);

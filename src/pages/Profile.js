@@ -14,7 +14,7 @@ function Profile() {
     if(localStorage.getItem("token") === null) {
         return <Navigate to="/login"/>
     }
-    console.log(localStorage.getItem("token"));
+    //console.log(localStorage.getItem("token"));
     return(
         <ContentLayout showNav={true} containerSize="container.lg">
             <ProfileHeader userId={userId}/>
