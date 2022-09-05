@@ -14,3 +14,8 @@ Entries is a journaling web app that focuses on simplicity and minimalism. Curre
 
 ## Link
 <a href="https://jovial-marshmallow-e9b3d7.netlify.app/" target="_blank">Netlify</a>
+
+## Preview Images
+<img src="https://www.jeremiahortiz.ca/static/media/entries-home-light.740b44548655529e0a9d.png" alt="main page">
+<img src="https://www.jeremiahortiz.ca/static/media/entries-login.458864c163bf2fc657be.png" alt="login page">
+
