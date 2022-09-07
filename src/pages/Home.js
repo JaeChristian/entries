@@ -1,7 +1,7 @@
 import ContentLayout from "../layouts/ContentLayout";
 import { Navigate, Outlet } from "react-router-dom";
 import CategoryPanel from "../components/CategoryPanel";
-import {Box} from "@chakra-ui/react"
+import {Box, Link, Text} from "@chakra-ui/react"
 import axios from "axios"
 import { API_URL } from "../libs/URLhandler";
 
@@ -34,6 +34,9 @@ function Home({updateCategories}) {
             <Box ml={4} w="300px" position="fixed" left="0" display={{base: "none", xl: "flex"}} flexDir="column" gap={2}>
                 <CategoryPanel updateCategories={updateCategories}/>
             </Box>
+            {/* <Box ml={4} w="300px" position="fixed" right="50" display={{base: "none", xl: "flex"}} gap={2} alignItems="center">
+                <Link fontSize="sm">Column</Link> | <Link fontSize="sm">Grid</Link>
+            </Box> */}
             <ContentLayout showNav={true}>
                 <Outlet/>
             </ContentLayout>

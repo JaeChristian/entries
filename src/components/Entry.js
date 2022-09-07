@@ -6,7 +6,7 @@ import EntryOptions from "./EntryOptions";
 import DisplayCategory from "./DisplayCategory";
 import { API_URL } from "../libs/URLhandler";
 
-function Entry({entry, updateEntries, categories, updateCategories}){
+function Entry({entry, updateEntries, categories, updateCategories, entryHeight = "auto"}){
     // Colors
     const gray = useColorModeValue("#EAEAEA", "#1e1e1e");
     const red = useColorModeValue("red.300", "red.700");
@@ -148,6 +148,7 @@ function Entry({entry, updateEntries, categories, updateCategories}){
                 display="flex"
                 flexDir="column"
                 gap={2}
+                h={entryHeight}
             >
                 {entry.imageURL && (<Image src={entry.imageURL} borderTopRadius="0.4rem" maxH="500px" w="100%" objectFit="cover"/>)}
                 
@@ -164,7 +165,7 @@ function Entry({entry, updateEntries, categories, updateCategories}){
                     overflowY="auto" 
                     className="entry" 
                     borderRadius="0.2rem"
-                    mr={1}
+                    mr={4}
                     ml={4}
                 >
                     <Box fontSize="16px" whiteSpace="pre-wrap">{entry.body}</Box>
