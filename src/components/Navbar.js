@@ -63,8 +63,8 @@ function Navbar(){
                         />
                         <MenuList bg={bg} border="none" boxShadow="0 5px 4px rgba(0, 0, 0, 0.08), 0 5px 8px rgba(0, 0, 0, 0.2)">
                             <MenuLink to="/home/all" title="Home"/>
-                            <MenuLink to={"/profile/" + authUser.id} title="Profile"/>
-                            <MenuLink to="javascript:void(0)" title="Settings"/>
+                            {/* <MenuLink to={"/profile/" + authUser.id} title="Profile"/> */}
+                            {/* <MenuLink to="javascript:void(0)" title="Settings"/> */}
                             <MenuLink to="/login" onClick={() => killToken()} title="Logout"/>
                         </MenuList>
                     </Menu>
