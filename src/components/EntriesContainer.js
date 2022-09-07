@@ -71,6 +71,7 @@ function EntriesContainer({entryChange, updateEntries, categories, updateCategor
                     _hover={{backgroundColor: useColorModeValue("blackAlpha.100", "whiteAlpha.100")}}
                     _focus={{}}
                     onClick={()=>setIsGrid(false)}
+                    display={{base: "none", sm: "flex"}}
                 />
                 <IconButton
                     icon={<Icon as={MdGridView}/>}
@@ -81,6 +82,7 @@ function EntriesContainer({entryChange, updateEntries, categories, updateCategor
                     _hover={{backgroundColor: useColorModeValue("blackAlpha.100", "whiteAlpha.100")}}
                     _focus={{}}
                     onClick={()=>setIsGrid(true)}
+                    display={{base: "none", sm: "flex"}}
                 />
             </Flex>
             
